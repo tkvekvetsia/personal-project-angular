@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-
+    <button (click)="fill()">fill</button>
     <h3><span> Register</span> Now</h3>
     <form [formGroup]="registerForm">
       <div class="flex-between" formGroupName="fullName">
@@ -58,6 +58,11 @@
             email is required and it should have correct email format
           </span>
         </ng-container>
+        <ng-container *ngIf="email.valid && (emailExistsError | async)">
+          <span class="required-color error">
+            email already exists
+          </span>
+        </ng-container>
       </label>
       <div class="flex-between" formGroupName="passwordGroup">
         <label>
@@ -101,7 +106,7 @@
         <input
           type="tel"
           class="input-style"
-          placeholder="Phone Number"
+          placeholder="+995123456789"
           formControlName="phoneNumber"
         />
         <ng-container *ngIf="!phoneNumber.valid && phoneNumber.touched">
@@ -110,6 +115,7 @@
           </span>
         </ng-container>
       </label>
+
       <label>
         <span class="required-color">*</span> Date Of Birth:
         <input type="date" class="input-style" formControlName="dateOfBirth" />
@@ -119,6 +125,7 @@
           </span>
         </ng-container>
       </label>
+
       <label>
         <span class="required-color">*</span> Sex:
         <select class="input-style select" formControlName="sex">
@@ -149,7 +156,8 @@
         <button
           mat-stroked-button
           color="primary"
-          [disabled]="!registerForm.valid"
+          [disabled]="!registerForm.valid || (emailExistsError |async)"
+          (click)="onRegister()"
         >
           Register
         </button>

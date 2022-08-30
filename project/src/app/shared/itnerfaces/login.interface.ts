@@ -4,3 +4,9 @@ export interface ILoginForm{
     email: FormControl<string>;
     password: FormControl<string>;
 }
+
+
+export interface ILoginUser{
+    email: string;
+    password: string;
+}

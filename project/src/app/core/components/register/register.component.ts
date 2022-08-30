@@ -1,7 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, debounceTime, tap } from 'rxjs';
-import { IFullNameFormGroup, IRegisterForm } from 'src/app/shared/itnerfaces/register.interface';
+import { Router } from '@angular/router';
+import {
+  BehaviorSubject,
+  catchError,
+  debounceTime,
+  of,
+  tap,
+} from 'rxjs';
+import {
+  IFullNameFormGroup,
+  IRegisteredUser,
+  IRegisterForm,
+} from 'src/app/shared/itnerfaces/register.interface';
+import { BackendService } from '../../services/backend.service';
 import { matchValidator } from './validators/password.validators';
 
 @Component({
@@ -12,8 +24,8 @@ import { matchValidator } from './validators/password.validators';
 })
 export class RegisterComponent implements OnInit {
   passwordMatchError: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-  constructor() {}
+  emailExistsError: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  constructor(private backendService: BackendService, private router: Router) {}
 
   ngOnInit(): void {
     //check for paswword match
@@ -48,6 +60,33 @@ export class RegisterComponent implements OnInit {
       .subscribe();
 
     //end of checking passwords
+
+    //check email
+    this.email.valueChanges
+      .pipe(
+        debounceTime(100),
+        tap(() => {
+          if(this.email.valid){
+            this.backendService
+            .getAllUsers()
+            .pipe(
+              tap((v) => {
+                let index = v.findIndex(
+                  (data) => data.email === this.email.value
+                );
+                if (index < 0) {
+                  this.emailExistsError.next(false);
+                } else {
+                  this.emailExistsError.next(true);
+                }
+              })
+            )
+            .subscribe();
+          }
+          
+        })
+      )
+      .subscribe();
   }
 
   //register form
@@ -114,7 +153,36 @@ export class RegisterComponent implements OnInit {
     }),
   });
 
-  
+  //register user
+  public onRegister(): void {
+    const user: IRegisteredUser = {
+      fullName: {
+        firstName: this.firstnName.value,
+        lastName: this.lastName.value,
+      },
+      idNumber: this.idNumber.value,
+      email: this.email.value,
+      password: this.password.value,
+      phoneNumber: this.phoneNumber.value,
+      dateOfBirth: this.dateOfBirth.value,
+      sex: this.sex.value,
+      status: this.status.value,
+    };
+
+    this.backendService
+      .registerUser(user)
+      .pipe(
+        tap(() => {
+          this.registerForm.reset();
+          this.router.navigateByUrl('/login');
+        }),
+        catchError((e) => {
+          alert(`Something Went Wrong With Error Message: ${e.message}`)
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
 
   //registerform getters
   get fullName(): FormGroup<IFullNameFormGroup> {
@@ -164,5 +232,21 @@ export class RegisterComponent implements OnInit {
   }
   get status(): FormControl<string> {
     return this.registerForm.get('status') as FormControl<string>;
+  }
+
+  fill() {
+    this.registerForm.patchValue({
+      fullName: {
+        firstName: 'name',
+        lastName: 'lastname',
+      },
+      idNumber: 12345678911,
+      email: 'test@gmail.com',
+      passwordGroup: {
+        password: '123456789',
+        confirmPassword: '123456789',
+      },
+      phoneNumber: 995598423645,
+    });
   }
 }
