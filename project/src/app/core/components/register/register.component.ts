@@ -65,12 +65,12 @@ export class RegisterComponent implements OnInit {
     idNumber: new FormControl<number | null>(null, {
       nonNullable: true,
       validators: [
-        Validators.maxLength(11),
+        Validators.minLength(11),
         Validators.pattern(
           /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
         ),
         Validators.required,
-      ], //maxLength doesn't work for some misterious reason
+      ], //minlengt doesn't work for some misterious reason
     }),
     email: new FormControl<string>('', {
       nonNullable: true,
