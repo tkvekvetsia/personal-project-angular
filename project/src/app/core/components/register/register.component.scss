@@ -47,6 +47,9 @@
 
         label {
           margin-bottom: 15px;
+          &:hover{
+            cursor: pointer;
+          }
 
           .input-style {
             width: 340px;
@@ -67,6 +70,10 @@
               box-shadow: 0 0 5px 0 $input-border-focus-color;
               outline: none;
             }
+            &.ng-touched.ng-invalid {
+              border-color: #ec1818;
+              box-shadow: 0 0 5px #f32626;
+            }
         
           }
           select{
@@ -79,9 +86,21 @@
             color: $required-color;
           }
 
+          .error{
+            font-size: 10px;
+            line-height: 10px;
+          }
          
         }
       }
     }
+  }
+}
+
+
+input{
+  &.ng-invalid{
+  border: 1px solid red;
+
   }
 }

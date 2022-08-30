@@ -1,28 +1,78 @@
 <div class="container">
   <div class="card">
-    <form>
-      <div class="flex-between">
+
+    <h3><span> Register</span> Now</h3>
+    <form [formGroup]="registerForm">
+      <div class="flex-between" formGroupName="fullName">
         <label>
           <span class="required-color">*</span> First Name:
-          <input type="text" class="input-style" placeholder="First Name" />
+          <input
+            type="text"
+            class="input-style"
+            placeholder="First Name"
+            formControlName="firstName"
+          />
+          <ng-container *ngIf="!firstnName.valid && firstnName.touched">
+            <span class="required-color error"
+              >firstName is required and Only Alphabetical Characters are allowed</span>
+          </ng-container>
         </label>
         <label>
           <span class="required-color">*</span> Last Name:
-          <input type="text" class="input-style" placeholder="Last Name" />
+          <input
+            type="text"
+            class="input-style"
+            placeholder="Last Name"
+            formControlName="lastName"
+          />
+          <ng-container *ngIf="!lastName.valid && lastName.touched">
+            <span class="required-color error"
+              >lastName is required and Only Alphabetical Character are allowed</span>
+          </ng-container>
         </label>
       </div>
       <label>
         <span class="required-color">*</span> Your ID Number:
-        <input type="number" class="input-style" placeholder="ID Number" />
+        <input
+          type="number"
+          class="input-style"
+          placeholder="ID Number"
+          formControlName="idNumber"
+        />
+        <ng-container *ngIf="!idNumber.valid && idNumber.touched">
+          <span class="required-color error">
+            ID is required and it should have min length 11
+          </span>
+        </ng-container>
       </label>
       <label>
         <span class="required-color">*</span> Email:
-        <input type="email" class="input-style" placeholder="Email" />
+        <input
+          type="email"
+          class="input-style"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <ng-container *ngIf="!email.valid && email.touched">
+          <span class="required-color error">
+            email is required and it should have correct email format
+          </span>
+        </ng-container>
       </label>
-      <div class="flex-between">
+      <div class="flex-between" formGroupName="passwordGroup">
         <label>
           <span class="required-color">*</span> Password:
-          <input type="password" class="input-style" placeholder="Password" />
+          <input
+            type="password"
+            class="input-style"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <ng-container *ngIf="!password.valid && password.touched">
+            <span class="required-color error">
+              passowrd should contain minimum 8 characters
+            </span>
+          </ng-container>
         </label>
         <label>
           <span class="required-color">*</span> Confirm Password:
@@ -30,35 +80,77 @@
             type="password"
             class="input-style"
             placeholder="Confirm Password"
+            formControlName="confirmPassword"
           />
+          <ng-container
+           *ngIf="!(passwordMatchError | async) && confirmPassword.touched && !confirmPassword.valid">
+           <span class="required-color error">
+            please confirm the password
+           </span>
+          </ng-container>
+          <ng-container
+           *ngIf="passwordMatchError | async">
+           <span class="required-color error">
+            passwords don't match
+           </span>
+          </ng-container>
         </label>
       </div>
       <label>
         <span class="required-color">*</span> Phone Number:
-        <input type="tel" class="input-style" placeholder="Phone Number" />
+        <input
+          type="tel"
+          class="input-style"
+          placeholder="Phone Number"
+          formControlName="phoneNumber"
+        />
+        <ng-container *ngIf="!phoneNumber.valid && phoneNumber.touched">
+          <span class="required-color error">
+            phone number should start with +995 and has to have 13 characters
+          </span>
+        </ng-container>
       </label>
       <label>
         <span class="required-color">*</span> Date Of Birth:
-        <input type="date" class="input-style" />
+        <input type="date" class="input-style" formControlName="dateOfBirth" />
+        <ng-container *ngIf="!dateOfBirth.valid && dateOfBirth.touched">
+          <span class="required-color error">
+           Date Of Birth is required
+          </span>
+        </ng-container>
       </label>
       <label>
         <span class="required-color">*</span> Sex:
-        <select class="input-style select">
+        <select class="input-style select" formControlName="sex">
           <option>Male</option>
           <option>Female</option>
         </select>
+        <ng-container *ngIf="!sex.valid && sex.touched">
+          <span class="required-color error">
+           please choose one of the options
+          </span>
+        </ng-container>
       </label>
 
       <label>
         <span class="required-color">*</span> choose Your Status:
-        <select class="input-style">
+        <select class="input-style" formControlName="status">
           <option>Student</option>
           <option>Teacher</option>
           <option>Admin</option>
         </select>
+        <ng-container *ngIf="!status.valid && status.touched">
+          <span class="required-color error">
+           please choose one of the options
+          </span>
+        </ng-container>
       </label>
       <div class="buttons">
-        <button mat-stroked-button color="primary" [disabled]="">
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="!registerForm.valid"
+        >
           Register
         </button>
       </div>
