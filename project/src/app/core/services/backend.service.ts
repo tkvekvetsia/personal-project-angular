@@ -12,7 +12,7 @@ export class BackendService {
   constructor(private http: HttpClient) {}
 
   public registerUser(body: IRegisteredUser): Observable<IRegisteredUser> {
-    return this.http.post<IRegisteredUser>(`${this.baseUrl}/registe`, body);
+    return this.http.post<IRegisteredUser>(`${this.baseUrl}/register`, body);
   }
 
   public getAllUsers():Observable<IRegisteredUser[]> {

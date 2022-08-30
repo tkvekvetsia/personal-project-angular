@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ILoginForm } from 'src/app/shared/itnerfaces/login.interface';
+import { Router } from '@angular/router';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import {
+  ILoginForm,
+  ILoginUser,
+} from 'src/app/shared/itnerfaces/login.interface';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +15,9 @@ import { ILoginForm } from 'src/app/shared/itnerfaces/login.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
+  authErrorMessage: BehaviorSubject<string> = new BehaviorSubject('');
+  ngOnInit(): void {}
 
   //login form
   loginForm: FormGroup<ILoginForm> = new FormGroup({
@@ -26,8 +31,19 @@ export class LoginComponent implements OnInit {
     }),
   });
 
-  public onLogin(): void {}
-
-
-
+  public onLogin(): void {
+    this.authService
+      .login(this.loginForm.value as ILoginUser)
+      .pipe(
+        tap((v) => {
+          this.authErrorMessage.next('');
+          this.router.navigateByUrl('/profile')
+        }),
+        catchError((e) => {
+          this.authErrorMessage.next(e.error);
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
 }

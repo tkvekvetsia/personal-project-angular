@@ -19,6 +19,10 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
+  },
+  {
     path: "**",
     component: PageNotFoundComponent
   }

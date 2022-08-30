@@ -9,7 +9,13 @@
       <label>
         Password:
         <input type="password" class="input-style" formControlName="password" placeholder="Enter Password"/>
+        <ng-container *ngIf="authErrorMessage | async">
+          <span class="required-color error">
+            {{authErrorMessage | async}}
+          </span>
+        </ng-container>
       </label>
+      
       <div class="buttons">
         <button mat-stroked-button color="primary" [disabled]="!loginForm.valid" (click)="onLogin()">Log In</button>
       </div>
