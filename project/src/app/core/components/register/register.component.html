@@ -1,1 +1,67 @@
-<p>register works!</p>
+<div class="container">
+  <div class="card">
+    <form>
+      <div class="flex-between">
+        <label>
+          <span class="required-color">*</span> First Name:
+          <input type="text" class="input-style" placeholder="First Name" />
+        </label>
+        <label>
+          <span class="required-color">*</span> Last Name:
+          <input type="text" class="input-style" placeholder="Last Name" />
+        </label>
+      </div>
+      <label>
+        <span class="required-color">*</span> Your ID Number:
+        <input type="number" class="input-style" placeholder="ID Number" />
+      </label>
+      <label>
+        <span class="required-color">*</span> Email:
+        <input type="email" class="input-style" placeholder="Email" />
+      </label>
+      <div class="flex-between">
+        <label>
+          <span class="required-color">*</span> Password:
+          <input type="password" class="input-style" placeholder="Password" />
+        </label>
+        <label>
+          <span class="required-color">*</span> Confirm Password:
+          <input
+            type="password"
+            class="input-style"
+            placeholder="Confirm Password"
+          />
+        </label>
+      </div>
+      <label>
+        <span class="required-color">*</span> Phone Number:
+        <input type="tel" class="input-style" placeholder="Phone Number" />
+      </label>
+      <label>
+        <span class="required-color">*</span> Date Of Birth:
+        <input type="date" class="input-style" />
+      </label>
+      <label>
+        <span class="required-color">*</span> Sex:
+        <select class="input-style select">
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </label>
+
+      <label>
+        <span class="required-color">*</span> choose Your Status:
+        <select class="input-style">
+          <option>Student</option>
+          <option>Teacher</option>
+          <option>Admin</option>
+        </select>
+      </label>
+      <div class="buttons">
+        <button mat-stroked-button color="primary" [disabled]="">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
