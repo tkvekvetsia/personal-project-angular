@@ -23,8 +23,8 @@ import { matchValidator } from './validators/password.validators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
-  passwordMatchError: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  emailExistsError: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  passwordMatchError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  emailExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private backendService: BackendService, private router: Router) {}
 
   ngOnInit(): void {
@@ -36,9 +36,9 @@ export class RegisterComponent implements OnInit {
             this.password.value !== this.confirmPassword.value &&
             this.password.valid
           ) {
-            this.passwordMatchError.next(true);
+            this.passwordMatchError$.next(true);
           } else {
-            this.passwordMatchError.next(false);
+            this.passwordMatchError$.next(false);
           }
         })
       )
@@ -51,9 +51,9 @@ export class RegisterComponent implements OnInit {
             this.password.value !== this.confirmPassword.value &&
             this.confirmPassword.valid
           ) {
-            this.passwordMatchError.next(true);
+            this.passwordMatchError$.next(true);
           } else {
-            this.passwordMatchError.next(false);
+            this.passwordMatchError$.next(false);
           }
         })
       )
@@ -75,9 +75,9 @@ export class RegisterComponent implements OnInit {
                   (data) => data.email === this.email.value
                 );
                 if (index < 0) {
-                  this.emailExistsError.next(false);
+                  this.emailExistsError$.next(false);
                 } else {
-                  this.emailExistsError.next(true);
+                  this.emailExistsError$.next(true);
                 }
               })
             )
@@ -177,7 +177,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }),
         catchError((e) => {
-          alert(`Something Went Wrong With Error Message: ${e.message}`)
+          alert(`Something Went Wrong With Status Code: ${e.status} ${e.statusText}`)
           return of(null);
         })
       )

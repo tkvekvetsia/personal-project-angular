@@ -58,7 +58,7 @@
             email is required and it should have correct email format
           </span>
         </ng-container>
-        <ng-container *ngIf="email.valid && (emailExistsError | async)">
+        <ng-container *ngIf="email.valid && (emailExistsError$ | async)">
           <span class="required-color error">
             email already exists
           </span>
@@ -88,13 +88,13 @@
             formControlName="confirmPassword"
           />
           <ng-container
-           *ngIf="!(passwordMatchError | async) && confirmPassword.touched && !confirmPassword.valid">
+           *ngIf="!(passwordMatchError$ | async) && confirmPassword.touched && !confirmPassword.valid">
            <span class="required-color error">
             please confirm the password
            </span>
           </ng-container>
           <ng-container
-           *ngIf="passwordMatchError | async">
+           *ngIf="passwordMatchError$ | async">
            <span class="required-color error">
             passwords don't match
            </span>
@@ -156,7 +156,7 @@
         <button
           mat-stroked-button
           color="primary"
-          [disabled]="!registerForm.valid || (emailExistsError |async)"
+          [disabled]="!registerForm.valid || (emailExistsError$ |async)"
           (click)="onRegister()"
         >
           Register

@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
-  authErrorMessage: BehaviorSubject<string> = new BehaviorSubject('');
+  authErrorMessage$: BehaviorSubject<string> = new BehaviorSubject('');
   ngOnInit(): void {}
 
   //login form
@@ -36,14 +36,19 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value as ILoginUser)
       .pipe(
         tap((v) => {
-          this.authErrorMessage.next('');
-          this.router.navigateByUrl('/profile')
+          this.authErrorMessage$.next('');
+          console.log(v);
+          // localStorage.setItem('auth_access', v.accessToken);
+          this.authService.changeLoggedState(true);
+          this.router.navigateByUrl('/profile');
         }),
         catchError((e) => {
-          this.authErrorMessage.next(e.error);
+          this.authErrorMessage$.next(e.error);
           return of(null);
         })
       )
       .subscribe();
+
+      
   }
 }
