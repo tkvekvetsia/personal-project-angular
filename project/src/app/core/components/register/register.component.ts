@@ -25,6 +25,7 @@ import { matchValidator } from './validators/password.validators';
 export class RegisterComponent implements OnInit {
   passwordMatchError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   emailExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  idExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private backendService: BackendService, private router: Router) {}
 
   ngOnInit(): void {
@@ -87,6 +88,35 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe();
+
+      //id number checking
+      this.idNumber.valueChanges
+      .pipe(
+        debounceTime(100),
+        tap(() => {
+          if(this.idNumber.valid){
+            this.backendService
+            .getAllUsers()
+            .pipe(
+              tap((v) => {
+                let index = v.findIndex(
+                  (data) => data.idNumber === this.idNumber.value
+                );
+                if (index < 0) {
+                  this.idExistsError$.next(false);
+                } else {
+                  this.idExistsError$.next(true);
+                }
+              })
+            )
+            .subscribe();
+          }
+          
+        })
+      )
+      .subscribe();
+        
+
   }
 
   //register form

@@ -44,6 +44,11 @@
             ID is required and it should have min length 11
           </span>
         </ng-container>
+        <ng-container *ngIf="idNumber.valid && (idExistsError$ | async)">
+          <span class="required-color error">
+            ID already exists
+          </span>
+        </ng-container>
       </label>
       <label>
         <span class="required-color">*</span> Email:
@@ -156,7 +161,7 @@
         <button
           mat-stroked-button
           color="primary"
-          [disabled]="!registerForm.valid || (emailExistsError$ |async)"
+          [disabled]="!registerForm.valid || (emailExistsError$ |async) || (idExistsError$ | async)"
           (click)="onRegister()"
         >
           Register
