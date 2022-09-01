@@ -5,7 +5,8 @@
       <h1>Welcome</h1>
     </div>
     <nav >
-      <ng-container *ngIf="isLoggedIn |async; else signIn">
+      <ng-container >
+      <!-- ngIf="isLoggedIn |async; else signIn" -->
         <ul class="pages">
           <li>
               <a>Subjects</a>
@@ -14,8 +15,11 @@
               <a>Teachers</a>
           </li>
           <li>
-              <a>Admins</a>
+              <a>Students</a>
           </li>
+          <li>
+            <a>Admins</a>
+        </li>
           <li>
               <a>Gradebooks</a> 
           </li>

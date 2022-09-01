@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
     this.backendService.deleteUser(this.loggedUser$.getValue().id).pipe(
       tap( v => {
         console.log(v);
-        
         this.authService.logOut();
       }),
       catchError((e) => {
