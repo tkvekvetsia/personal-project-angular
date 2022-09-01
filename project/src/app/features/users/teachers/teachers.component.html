@@ -1,1 +1,29 @@
-<p>teachers works!</p>
+<div class="container">
+  <ng-container *ngIf="errorMessage$ | async">
+    <h3>Something Went Wrong While Retrieving Data</h3>
+  </ng-container>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>phone</th>
+      <th>Email</th>
+      <th>Date oF Birth</th>
+    </tr>
+
+    <ng-container *ngFor="let teacher of teachers$ | async">
+      <tr>
+        <td>{{ teacher.idNumber }}</td>
+        <td>
+          {{ teacher.fullName.firstName }} {{ teacher.fullName.lastName }}
+        </td>
+        <td>{{ teacher.sex }}</td>
+        <td>{{ teacher.phoneNumber }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.dateOfBirth }}</td>
+      </tr>
+    </ng-container>
+  </table>
+</div>

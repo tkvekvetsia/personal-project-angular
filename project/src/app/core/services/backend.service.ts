@@ -12,6 +12,7 @@ export class BackendService {
   private updateState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private updateUserId$: BehaviorSubject<number> = new BehaviorSubject(-1);
   private loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
+  
 
   constructor(private http: HttpClient) {}
 

@@ -13,11 +13,23 @@ import { BackendService } from '../../services/backend.service';
 })
 export class TopBarComponent implements OnInit {
   constructor(private router: Router, private authService:AuthService, private backendService: BackendService) {}
-  isLoggedIn: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  isLoggedIn$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  isAdmin$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.getIsLoggedIn();
+    this.isLoggedIn$ = this.authService.getIsLoggedIn();
+    this.isAdmin$ = this.authService.getIsAdmin();
   }
   public onLogOut(): void {
    this.authService.logOut();
+  }
+  public onClickTeachers():void{
+    this.router.navigateByUrl('/users/teachers');
+  }
+  public onClickAdmins():void{
+    this.router.navigateByUrl('/users/admins')
+  }
+
+  public onClickStudents():void{
+    this.router.navigateByUrl('/users/students');
   }
 }

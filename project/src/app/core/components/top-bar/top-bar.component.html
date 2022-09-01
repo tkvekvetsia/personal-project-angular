@@ -1,45 +1,51 @@
 <header>
   <div class="wrapper">
     <div class="welcome">
-      <img src="../../../../assets/images/school.png" alt="school image">  
+      <img src="../../../../assets/images/school.png" alt="school image" />
       <h1>Welcome</h1>
     </div>
-    <nav >
-      <ng-container >
-      <!-- ngIf="isLoggedIn |async; else signIn" -->
+    <nav>
+      <ng-container *ngIf="isLoggedIn$ |async; else signIn" >
+        <!-- ngIf="isLoggedIn |async; else signIn" -->
         <ul class="pages">
           <li>
-              <a>Subjects</a>
+            <a>Subjects</a>
           </li>
-          <li>
-              <a>Teachers</a>
+          <li (click)="onClickTeachers()">
+            <a>Teachers</a>
           </li>
-          <li>
-              <a>Students</a>
+          <li (click)="onClickStudents()">
+            <a>Students</a>
           </li>
+          <ng-container *ngIf="isAdmin$ | async">
+            <li (click)="onClickAdmins()">
+              <a>Admins</a>
+            </li>
+          </ng-container>
           <li>
-            <a>Admins</a>
-        </li>
-          <li>
-              <a>Gradebooks</a> 
+            <a>Gradebooks</a>
           </li>
-        </ul>  
+        </ul>
       </ng-container>
       <ng-template #signIn>
-        <div>
-        </div>
+        <div></div>
       </ng-template>
-      
+
       <div class="buttons">
-        <ng-container *ngIf="!(isLoggedIn | async)">
-          <button mat-stroked-button color="primary" routerLink="/login">Log In</button>
-          <button mat-stroked-button color="primary" routerLink="/register">Register</button>
-        </ng-container>
-        
-        <ng-container *ngIf="isLoggedIn | async">
-          <button mat-stroked-button color="primary" (click)="onLogOut()" >Log Out</button>
+        <ng-container *ngIf="!(isLoggedIn$ | async)">
+          <button mat-stroked-button color="primary" routerLink="/login">
+            Log In
+          </button>
+          <button mat-stroked-button color="primary" routerLink="/register">
+            Register
+          </button>
         </ng-container>
 
+        <ng-container *ngIf="isLoggedIn$ | async">
+          <button mat-stroked-button color="primary" (click)="onLogOut()">
+            Log Out
+          </button>
+        </ng-container>
       </div>
     </nav>
   </div>

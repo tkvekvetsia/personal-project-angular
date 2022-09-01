@@ -29,6 +29,11 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'users',
+    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    canLoad: [AuthGuard]
+  },
+  {
     path: "**",
     component: PageNotFoundComponent
   }
