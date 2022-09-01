@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
@@ -16,7 +16,6 @@ import {MatInputModule} from '@angular/material/input';
   declarations: [
     TopBarComponent,
     LoginComponent,
-    RegisterComponent,
     PageNotFoundComponent
   ],
   imports: [

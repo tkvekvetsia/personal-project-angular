@@ -1,19 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  catchError,
-  debounceTime,
-  of,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, catchError, debounceTime, of, ReplaySubject, tap } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { BackendService } from 'src/app/core/services/backend.service';
 import {
   IFullNameFormGroup,
   IRegisteredUser,
   IRegisterForm,
 } from 'src/app/shared/itnerfaces/register.interface';
-import { BackendService } from '../../services/backend.service';
+import { ILoggedUSer } from '../../itnerfaces/login.interface';
+
 import { matchValidator } from './validators/password.validators';
 
 @Component({
@@ -26,7 +23,14 @@ export class RegisterComponent implements OnInit {
   passwordMatchError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   emailExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   idExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  constructor(private backendService: BackendService, private router: Router) {}
+  updateState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
+  loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
+  constructor(
+    private backendService: BackendService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     //check for paswword match
@@ -67,56 +71,64 @@ export class RegisterComponent implements OnInit {
       .pipe(
         debounceTime(100),
         tap(() => {
-          if(this.email.valid){
+          if (this.email.valid) {
             this.backendService
-            .getAllUsers()
-            .pipe(
-              tap((v) => {
-                let index = v.findIndex(
-                  (data) => data.email === this.email.value
-                );
-                if (index < 0) {
-                  this.emailExistsError$.next(false);
-                } else {
-                  this.emailExistsError$.next(true);
-                }
-              })
-            )
-            .subscribe();
+              .getAllUsers()
+              .pipe(
+                tap((v) => {
+                  let index = v.findIndex(
+                    (data) => data.email === this.email.value
+                  );
+                  if (index < 0 ) {
+                    this.emailExistsError$.next(false);
+                  } else if (
+                    index >= 0 &&
+                    this.email.value !== this.loggedUser$.getValue().email
+                  ) {
+                    this.emailExistsError$.next(true);
+                  }
+                })
+              )
+              .subscribe();
           }
-          
         })
       )
       .subscribe();
 
-      //id number checking
-      this.idNumber.valueChanges
+    //id number checking
+    this.idNumber.valueChanges
       .pipe(
         debounceTime(100),
         tap(() => {
-          if(this.idNumber.valid){
+          if (this.idNumber.valid) {
             this.backendService
-            .getAllUsers()
-            .pipe(
-              tap((v) => {
-                let index = v.findIndex(
-                  (data) => data.idNumber === this.idNumber.value
-                );
-                if (index < 0) {
-                  this.idExistsError$.next(false);
-                } else {
-                  this.idExistsError$.next(true);
-                }
-              })
-            )
-            .subscribe();
+              .getAllUsers()
+              .pipe(
+                tap((v) => {
+                  let index = v.findIndex(
+                    (data) => data.idNumber === this.idNumber.value
+                  );
+                  if (index < 0 || this.idNumber.value == this.loggedUser$.getValue().idNumber) {
+                    this.idExistsError$.next(false);
+                  } else if( index >= 0 && this.idNumber.value !== this.loggedUser$.getValue().idNumber) {
+                    this.idExistsError$.next(true);
+                  }
+                })
+              )
+              .subscribe();
           }
-          
         })
       )
       .subscribe();
-        
 
+
+    //update state 
+   
+
+    //backend service variables
+    this.updateState$ = this.backendService.getUpdateState();
+    this.loggedUserEmail$ = this.backendService.getLoggedUserEmail();
+    this.loggedUser$ = this.authService.getLoggedUser();
   }
 
   //register form
@@ -134,7 +146,7 @@ export class RegisterComponent implements OnInit {
     idNumber: new FormControl<number | null>(null, {
       nonNullable: true,
       validators: [
-        Validators.minLength(11),
+        // Validators.minLength(11),
         Validators.pattern(
           /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
         ),
@@ -207,10 +219,25 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }),
         catchError((e) => {
-          alert(`Something Went Wrong With Status Code: ${e.status} ${e.statusText}`)
+          alert(
+            `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+          );
           return of(null);
         })
       )
+      .subscribe();
+  }
+
+  //cancel update state
+  public onCancel(): void {
+    this.backendService.changeUpdateState(false);
+  }
+
+  //update user
+  public onUpdate(): void {
+    this.backendService
+      .updateUser(this.registerForm.value as IRegisteredUser)
+      .pipe(tap((v) => console.log(v)))
       .subscribe();
   }
 

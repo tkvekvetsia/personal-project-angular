@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
           console.log(v);
           // localStorage.setItem('auth_access', v.accessToken);
           this.authService.changeLoggedState(true);
+          this.authService.changeLoggedUser(v.user)
           this.router.navigateByUrl('/profile');
         }),
         catchError((e) => {

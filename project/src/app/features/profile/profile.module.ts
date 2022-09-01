@@ -15,7 +15,8 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     SharedModule,
     ProfileRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    
     
   ]
 })

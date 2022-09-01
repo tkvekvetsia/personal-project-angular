@@ -1,3 +1,32 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "teacher@gmail.com",
+      "password": "$2a$10$0.qTwdteyPD6RVEFI6sdHetjCAuwh10zWgXxV3pl46VHnZRl//ts.",
+      "fullName": {
+        "firstName": "techer",
+        "lastName": "teacher"
+      },
+      "idNumber": 12345678911,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-02",
+      "sex": "Male",
+      "status": "Teacher",
+      "id": 3
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$mjpwZIHw0bd65twedPiHJeuZh1cvRRwHHi6CC6W1P8d5t3t9GE4Ua",
+      "fullName": {
+        "firstName": "name",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345678918,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-08-11",
+      "sex": "Female",
+      "status": "Admin",
+      "id": 4
+    }
+  ]
 }

@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/components/login/login.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
-import { RegisterComponent } from './core/components/register/register.component';
+
 import { AuthGuard } from './core/guards/auth.guard';
 import { LoginAndRegisterGuard } from './core/guards/login-and-register.guard';
+import { RegisterComponent } from './shared/components/register/register.component';
 
 const routes: Routes = [
   {

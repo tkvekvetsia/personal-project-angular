@@ -14,7 +14,9 @@
           />
           <ng-container *ngIf="!firstnName.valid && firstnName.touched">
             <span class="required-color error"
-              >firstName is required and Only Alphabetical Characters are allowed</span>
+              >firstName is required and Only Alphabetical Characters are
+              allowed</span
+            >
           </ng-container>
         </label>
         <label>
@@ -27,10 +29,13 @@
           />
           <ng-container *ngIf="!lastName.valid && lastName.touched">
             <span class="required-color error"
-              >lastName is required and Only Alphabetical Character are allowed</span>
+              >lastName is required and Only Alphabetical Character are
+              allowed</span
+            >
           </ng-container>
         </label>
       </div>
+
       <label>
         <span class="required-color">*</span> Your ID Number:
         <input
@@ -45,9 +50,7 @@
           </span>
         </ng-container>
         <ng-container *ngIf="idNumber.valid && (idExistsError$ | async)">
-          <span class="required-color error">
-            ID already exists
-          </span>
+          <span class="required-color error"> ID already exists </span>
         </ng-container>
       </label>
       <label>
@@ -64,9 +67,7 @@
           </span>
         </ng-container>
         <ng-container *ngIf="email.valid && (emailExistsError$ | async)">
-          <span class="required-color error">
-            email already exists
-          </span>
+          <span class="required-color error"> email already exists </span>
         </ng-container>
       </label>
       <div class="flex-between" formGroupName="passwordGroup">
@@ -93,16 +94,18 @@
             formControlName="confirmPassword"
           />
           <ng-container
-           *ngIf="!(passwordMatchError$ | async) && confirmPassword.touched && !confirmPassword.valid">
-           <span class="required-color error">
-            please confirm the password
-           </span>
+            *ngIf="
+              !(passwordMatchError$ | async) &&
+              confirmPassword.touched &&
+              !confirmPassword.valid
+            "
+          >
+            <span class="required-color error">
+              please confirm the password
+            </span>
           </ng-container>
-          <ng-container
-           *ngIf="passwordMatchError$ | async">
-           <span class="required-color error">
-            passwords don't match
-           </span>
+          <ng-container *ngIf="passwordMatchError$ | async">
+            <span class="required-color error"> passwords don't match </span>
           </ng-container>
         </label>
       </div>
@@ -125,9 +128,7 @@
         <span class="required-color">*</span> Date Of Birth:
         <input type="date" class="input-style" formControlName="dateOfBirth" />
         <ng-container *ngIf="!dateOfBirth.valid && dateOfBirth.touched">
-          <span class="required-color error">
-           Date Of Birth is required
-          </span>
+          <span class="required-color error"> Date Of Birth is required </span>
         </ng-container>
       </label>
 
@@ -139,33 +140,74 @@
         </select>
         <ng-container *ngIf="!sex.valid && sex.touched">
           <span class="required-color error">
-           please choose one of the options
+            please choose one of the options
           </span>
         </ng-container>
       </label>
 
       <label>
         <span class="required-color">*</span> choose Your Status:
-        <select class="input-style" formControlName="status">
-          <option>Student</option>
-          <option>Teacher</option>
-          <option>Admin</option>
-        </select>
+        <ng-container *ngIf="(updateState$ | async); else registerstate">
+          
+          <select class="input-style" formControlName="status"  *ngIf="loggedUser$ | async as user">
+            <option >{{user.status}}</option>
+          </select>
+        </ng-container>
+        <ng-template #registerstate>
+          <select class="input-style" formControlName="status">
+            <option>Student</option>
+            <option>Teacher</option>
+            <option>Admin</option>
+          </select>
+        </ng-template>
+        
         <ng-container *ngIf="!status.valid && status.touched">
           <span class="required-color error">
-           please choose one of the options
+            please choose one of the options
           </span>
         </ng-container>
       </label>
       <div class="buttons">
-        <button
-          mat-stroked-button
-          color="primary"
-          [disabled]="!registerForm.valid || (emailExistsError$ |async) || (idExistsError$ | async)"
-          (click)="onRegister()"
-        >
-          Register
-        </button>
+        <ng-container *ngIf="!(updateState$ | async); else update">
+          <button
+            mat-stroked-button
+            color="primary"
+            [disabled]="
+              !registerForm.valid ||
+              (emailExistsError$ | async) ||
+              (idExistsError$ | async)
+            "
+            (click)="onRegister()"
+          >
+            Register
+          </button>
+        </ng-container>
+
+        <ng-template #update>
+          <button
+            type="button"
+            class="margin-right"
+            mat-stroked-button
+            color="primary"
+            [disabled]="
+              !registerForm.valid ||
+              (emailExistsError$ | async) ||
+              (idExistsError$ | async)
+            "
+            (click)="onUpdate()"
+          >
+            Update
+          </button>
+
+          <button
+            type="button"
+            mat-stroked-button
+            color="accent"
+            (click)="onCancel()"
+          >
+            Cancel
+          </button>
+        </ng-template>
       </div>
     </form>
   </div>

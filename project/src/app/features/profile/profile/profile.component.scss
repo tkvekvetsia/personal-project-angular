@@ -48,11 +48,12 @@ h5 {
 
       p {
         height: 30px;
-        font-weight: 400;
+        // font-weight: 400;
         font-size: 18px;
         margin: 0;
-        &:nth-child(odd) {
-          width: 100%;
+        span{
+          font-weight: bold;
+          font-style: italic;
         }
       }
     }

@@ -20,5 +20,10 @@ export interface ILoggedUSer {
   sex: string;
   status: string;
   id: number;
+  // accessToken: string;
+}
+
+export interface ILoginResponse {
   accessToken: string;
+  user: ILoggedUSer
 }
