@@ -1,7 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, debounceTime, of, ReplaySubject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  debounceTime,
+  of,
+  ReplaySubject,
+  tap,
+} from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import {
@@ -25,7 +32,10 @@ export class RegisterComponent implements OnInit {
   idExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   updateState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
-  loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
+  loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
+    {} as ILoggedUSer
+  );
+  status$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -79,7 +89,7 @@ export class RegisterComponent implements OnInit {
                   let index = v.findIndex(
                     (data) => data.email === this.email.value
                   );
-                  if (index < 0 ) {
+                  if (index < 0) {
                     this.emailExistsError$.next(false);
                   } else if (
                     index >= 0 &&
@@ -108,9 +118,15 @@ export class RegisterComponent implements OnInit {
                   let index = v.findIndex(
                     (data) => data.idNumber === this.idNumber.value
                   );
-                  if (index < 0 || this.idNumber.value == this.loggedUser$.getValue().idNumber) {
+                  if (
+                    index < 0 ||
+                    this.idNumber.value == this.loggedUser$.getValue().idNumber
+                  ) {
                     this.idExistsError$.next(false);
-                  } else if( index >= 0 && this.idNumber.value !== this.loggedUser$.getValue().idNumber) {
+                  } else if (
+                    index >= 0 &&
+                    this.idNumber.value !== this.loggedUser$.getValue().idNumber
+                  ) {
                     this.idExistsError$.next(true);
                   }
                 })
@@ -121,9 +137,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe();
 
-
-    //update state 
-   
+    //update state
 
     //backend service variables
     this.updateState$ = this.backendService.getUpdateState();
@@ -189,7 +203,7 @@ export class RegisterComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    status: new FormControl<string>('', {
+    status: new FormControl<string>('teacher', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -235,9 +249,36 @@ export class RegisterComponent implements OnInit {
 
   //update user
   public onUpdate(): void {
+    const user: IRegisteredUser = {
+      fullName: {
+        firstName: this.firstnName.value,
+        lastName: this.lastName.value,
+      },
+      idNumber: this.idNumber.value,
+      email: this.email.value,
+      password: this.password.value,
+      phoneNumber: this.phoneNumber.value,
+      dateOfBirth: this.dateOfBirth.value,
+      sex: this.sex.value,
+      status: this.loggedUser$.getValue().status,
+    };
     this.backendService
-      .updateUser(this.registerForm.value as IRegisteredUser)
-      .pipe(tap((v) => console.log(v)))
+      .updateUser(user)
+      .pipe(
+        tap((v) => {
+          console.log(v), 
+          this.authService.changeLoggedUser(v);
+          this.registerForm.reset();
+          this.backendService.changeUpdateState(false)
+        }),
+        catchError((e) => {
+          console.log(e);
+          alert(
+            `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+          );
+          return of(null);
+        })
+      )
       .subscribe();
   }
 

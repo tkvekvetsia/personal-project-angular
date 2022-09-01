@@ -147,20 +147,21 @@
 
       <label>
         <span class="required-color">*</span> choose Your Status:
-        <ng-container *ngIf="(updateState$ | async); else registerstate">
-          
-          <select class="input-style" formControlName="status"  *ngIf="loggedUser$ | async as user">
-            <option >{{user.status}}</option>
+        <ng-container *ngIf="updateState$ | async; else registerstate">
+          <select class="input-style" formControlName="status">
+            <option [selected]="true">
+              {{ (loggedUser$ | async)!.status }}
+            </option>
           </select>
         </ng-container>
         <ng-template #registerstate>
           <select class="input-style" formControlName="status">
-            <option>Student</option>
-            <option>Teacher</option>
-            <option>Admin</option>
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Admin">Admin</option>
           </select>
         </ng-template>
-        
+
         <ng-container *ngIf="!status.valid && status.touched">
           <span class="required-color error">
             please choose one of the options

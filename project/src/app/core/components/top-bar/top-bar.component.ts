@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { AuthService } from '../../services/auth.service';
 import { BackendService } from '../../services/backend.service';
 
@@ -22,6 +23,8 @@ export class TopBarComponent implements OnInit {
     this.backendService.changeUpdateUserId(-1);
     this.authService.changeLoggedState(false);
     this.backendService.changeUpdateState(false);
+    this.authService.changeLoggedUser({} as ILoggedUSer)
+    // this.backendService.
     this.router.navigateByUrl('/login');
     
   }
