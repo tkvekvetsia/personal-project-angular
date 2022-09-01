@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, catchError, of, ReplaySubject, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
@@ -35,5 +35,23 @@ export class ProfileComponent implements OnInit {
     this.backendService.changeUpdateUserId(id);
     this.backendService.changeLoggedUserEmail(email)
     this.backendService.changeUpdateState(true);
+  }
+
+  public onDelete(): void{
+    this.backendService.deleteUser(this.loggedUser$.getValue().id).pipe(
+      tap( v => {
+        console.log(v);
+        
+        this.authService.logOut();
+      }),
+      catchError((e) => {
+        console.log(e);
+        alert(
+          `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+        );
+        return of(null);
+      })
+    ).subscribe();
+    
   }
 }

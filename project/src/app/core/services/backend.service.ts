@@ -34,7 +34,9 @@ export class BackendService {
   }
 
   //delete user
-  public deleteUser(){}
+  public deleteUser(id: number): Observable<{}> {
+    return this.http.delete<{}>(`${this.baseUrl}/users/${id}`);
+  }
 
   //getter
   public getUpdateState(): BehaviorSubject<boolean> {
