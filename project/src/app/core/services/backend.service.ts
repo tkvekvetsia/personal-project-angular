@@ -33,6 +33,9 @@ export class BackendService {
     );
   }
 
+  //delete user
+  public deleteUser(){}
+
   //getter
   public getUpdateState(): BehaviorSubject<boolean> {
     return this.updateState$;

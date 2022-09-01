@@ -18,14 +18,6 @@ export class TopBarComponent implements OnInit {
     this.isLoggedIn = this.authService.getIsLoggedIn();
   }
   public onLogOut(): void {
-    // localStorage.removeItem('auth_access');
-    this.backendService.changeLoggedUserEmail('');
-    this.backendService.changeUpdateUserId(-1);
-    this.authService.changeLoggedState(false);
-    this.backendService.changeUpdateState(false);
-    this.authService.changeLoggedUser({} as ILoggedUSer)
-    // this.backendService.
-    this.router.navigateByUrl('/login');
-    
+   this.authService.logOut();
   }
 }
