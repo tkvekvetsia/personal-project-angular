@@ -4,7 +4,7 @@ import { StudentsComponent } from './students/students.component';
 import { AdminsComponent } from './admins/admins.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { TeachersComponent } from './teachers/teachers.component';
-import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -17,7 +17,7 @@ import {MatTableModule} from '@angular/material/table';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    MatTableModule
+    MatIconModule
   ]
 })
 export class UsersModule { }

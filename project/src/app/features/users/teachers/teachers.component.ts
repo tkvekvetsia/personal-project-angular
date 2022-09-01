@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
@@ -7,14 +8,19 @@ import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
   styleUrls: ['./teachers.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeachersComponent implements OnInit {
   teachers$: BehaviorSubject<IRegisteredUser[]> = new BehaviorSubject(
     [] as IRegisteredUser[]
   );
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  constructor(private backendService: BackendService) { }
+  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  constructor(
+    private backendService: BackendService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.backendService
@@ -24,7 +30,7 @@ export class TeachersComponent implements OnInit {
           const arr = v.filter((value) => value.status === 'Teacher');
           this.teachers$.next(arr);
           this.errorMessage$.next(false);
-          console.log(this.teachers$.getValue());
+          // console.log(this.teachers$.getValue());
         }),
         catchError((v) => {
           this.errorMessage$.next(true);
@@ -32,6 +38,8 @@ export class TeachersComponent implements OnInit {
         })
       )
       .subscribe();
-  }
 
+    //authService variables
+    this.isAdmin$ = this.authService.getIsAdmin();
+  }
 }

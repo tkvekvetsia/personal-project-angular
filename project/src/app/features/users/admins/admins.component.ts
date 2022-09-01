@@ -25,7 +25,7 @@ export class AdminsComponent implements OnInit {
           console.log(v);
           this.admins$.next(arr);
           this.errorMessage$.next(false);
-          console.log(this.admins$.getValue());
+          // console.log(this.admins$.getValue());
         }),
         catchError((v) => {
           this.errorMessage$.next(true);

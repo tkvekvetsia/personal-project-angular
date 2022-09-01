@@ -23,6 +23,17 @@
         <td>{{ teacher.phoneNumber }}</td>
         <td>{{ teacher.email }}</td>
         <td>{{ teacher.dateOfBirth }}</td>
+        <ng-container *ngIf="isAdmin$ | async">
+          <td class="button">
+            <button
+              mat-fab
+              color="primary"
+              aria-label="Example icon button with a delete icon"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
       </tr>
     </ng-container>
   </table>
