@@ -1,32 +1,144 @@
 {
   "users": [
     {
-      "email": "teacher@gmail.com",
-      "password": "$2a$10$0.qTwdteyPD6RVEFI6sdHetjCAuwh10zWgXxV3pl46VHnZRl//ts.",
+      "email": "admin@gmail.com",
+      "password": "$2a$10$1gM0PWqMXgH.MbDBn4L3NeP1bZ.7XB4viqVYk74zW//JHYqX.Mwm2",
       "fullName": {
-        "firstName": "techer",
-        "lastName": "teacher"
+        "firstName": "admin",
+        "lastName": "admin"
       },
-      "idNumber": 12345678911,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-02",
+      "idNumber": 12345678912,
+      "phoneNumber": "+995598464646",
+      "dateOfBirth": "2022-09-01",
+      "sex": "Female",
+      "status": "Admin",
+      "id": 5
+    },
+    {
+      "email": "admin2@gmail.com",
+      "password": "$2a$10$1Yqt24SJke1oYsdgLTf3bObiLcMX26282vU9N81oU9b5WjJgXffai",
+      "fullName": {
+        "firstName": "adminsecond",
+        "lastName": "last"
+      },
+      "idNumber": 12345678919,
+      "phoneNumber": "+995598484848",
+      "dateOfBirth": "2022-08-31",
       "sex": "Male",
-      "status": "Teacher",
-      "id": 3
+      "status": "Admin",
+      "id": 8
     },
     {
       "email": "test@gmail.com",
-      "password": "$2a$10$mjpwZIHw0bd65twedPiHJeuZh1cvRRwHHi6CC6W1P8d5t3t9GE4Ua",
+      "password": "$2a$10$VrcfgjonwKF/fBD8uMmr0uG0NWWf7YNAfHom4qRP0Ouwt/uxFNBiy",
       "fullName": {
         "firstName": "name",
         "lastName": "lastname"
       },
       "idNumber": 12345678918,
       "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-08-11",
+      "dateOfBirth": "2022-09-12",
+      "sex": "Male",
+      "status": "Student",
+      "id": 9
+    },
+    {
+      "email": "f@gmail.com",
+      "password": "$2a$10$0jsf2nt73Hwg1RHXOTJ/i.pcHWM32ErjqdcTk0VCxucqGoCUGuoza",
+      "fullName": {
+        "firstName": "name",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345678921,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-06",
+      "sex": "Male",
+      "status": "Student",
+      "id": 12
+    },
+    {
+      "email": "student3@gmail.com",
+      "password": "$2a$10$.NZF0UPzUy3GotR5QgLw1udB.ySQOyaKMQ4c7aVMZtCrLtARFyNZS",
+      "fullName": {
+        "firstName": "name",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345678916,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-22",
       "sex": "Female",
-      "status": "Admin",
-      "id": 4
+      "status": "Student",
+      "id": 13
+    },
+    {
+      "email": "teacher@gmail.com",
+      "password": "$2a$10$H3lDnz.Q9wt8cG2Mt0kaH.D7StAuYlE77sl4iDQxB/T/R39P5rM6q",
+      "fullName": {
+        "firstName": "gurama",
+        "lastName": "lastname"
+      },
+      "idNumber": 123456789188,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-07",
+      "sex": "Female",
+      "status": "Teacher",
+      "id": 14
+    },
+    {
+      "email": "teacher2@gmail.com",
+      "password": "$2a$10$bIlREnFiQHuurcfyh1PA5uI4VJKRA0ZM8FhjImD9fOn5hgkVdPWDm",
+      "fullName": {
+        "firstName": "nick",
+        "lastName": "lastname"
+      },
+      "idNumber": 123456789187,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-19",
+      "sex": "Male",
+      "status": "Teacher",
+      "id": 15
+    },
+    {
+      "email": "r@gmail.com",
+      "password": "$2a$10$9JUdIr5DtGqtoCgtRSSJEOv5L8lL61ItU2rgSGTxcXzISsQAjDUXu",
+      "fullName": {
+        "firstName": "name",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345678913,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-06",
+      "sex": "Male",
+      "status": "Student",
+      "id": 16
+    },
+    {
+      "email": "laura@gmail.com",
+      "password": "$2a$10$DrXVOydi6WqmO490sCOhx.aIKo9wRet84xXfAZAQ6/tv/pt2ypMBa",
+      "fullName": {
+        "firstName": "laura",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345671910,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-07",
+      "sex": "Female",
+      "status": "Teacher",
+      "id": 17
+    },
+    {
+      "email": "ff@gmail.com",
+      "password": "$2a$10$Tg8IQ1l5hGBnDAEVOn4L1OwNT4zdV7kSz7ANPQdaCPDm0NtkZAMNu",
+      "fullName": {
+        "firstName": "ra",
+        "lastName": "lastname"
+      },
+      "idNumber": 12345689119,
+      "phoneNumber": "+995598423645",
+      "dateOfBirth": "2022-09-22",
+      "sex": "Male",
+      "status": "Teacher",
+      "id": 18
     }
   ]
 }

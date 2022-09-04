@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Component({
@@ -10,19 +16,20 @@ import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
   styleUrls: ['./teachers.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeachersComponent implements OnInit {
-  teachers$: BehaviorSubject<IRegisteredUser[]> = new BehaviorSubject(
-    [] as IRegisteredUser[]
+export class TeachersComponent implements OnInit, OnDestroy {
+  teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
   );
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  addUser$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(
     private backendService: BackendService,
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
+  private getTeachers(): void {
     this.backendService
       .getAllUsers()
       .pipe(
@@ -38,8 +45,41 @@ export class TeachersComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  ngOnInit(): void {
+    this.getTeachers();
 
     //authService variables
     this.isAdmin$ = this.authService.getIsAdmin();
+
+    //backendService variables
+    this.addUser$ = this.backendService.getAddUser();
+    this.teachers$ =this.backendService.getTeachers();
+  }
+
+  public onDelete(id: number): void {
+    this.backendService
+      .deleteUser(id)
+      .pipe(
+        tap((v) => {
+          this.getTeachers();
+        }),
+        catchError((e) => {
+          alert(
+            `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+          );
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
+  public onAddUser(): void {
+    this.backendService.changeAddUser('Teacher');
+  }
+
+  ngOnDestroy(): void {
+    this.backendService.changeAddUser('');
   }
 }

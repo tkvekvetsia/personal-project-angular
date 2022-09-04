@@ -36,6 +36,10 @@ export class RegisterComponent implements OnInit {
     {} as ILoggedUSer
   );
   status$: BehaviorSubject<string> = new BehaviorSubject('');
+  addUser$: BehaviorSubject<string> = new BehaviorSubject('');  
+  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
+  teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
+
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -139,10 +143,15 @@ export class RegisterComponent implements OnInit {
 
     //update state
 
+    //authService variables
+    this.loggedUser$ = this.authService.getLoggedUser();
+
     //backend service variables
     this.updateState$ = this.backendService.getUpdateState();
     this.loggedUserEmail$ = this.backendService.getLoggedUserEmail();
-    this.loggedUser$ = this.authService.getLoggedUser();
+    this.addUser$ = this.backendService.getAddUser();
+    this.students$ = this.backendService.getStudents();
+    this.teachers$ = this.backendService.getTeachers();
   }
 
   //register form
@@ -228,7 +237,9 @@ export class RegisterComponent implements OnInit {
     this.backendService
       .registerUser(user)
       .pipe(
-        tap(() => {
+        tap((v) => {
+          console.log(v);
+          
           this.registerForm.reset();
           this.router.navigateByUrl('/login');
         }),
@@ -245,6 +256,7 @@ export class RegisterComponent implements OnInit {
   //cancel update state
   public onCancel(): void {
     this.backendService.changeUpdateState(false);
+    this.backendService.changeAddUser('');
   }
 
   //update user
@@ -266,10 +278,9 @@ export class RegisterComponent implements OnInit {
       .updateUser(user)
       .pipe(
         tap((v) => {
-          console.log(v), 
           this.authService.changeLoggedUser(v);
           this.registerForm.reset();
-          this.backendService.changeUpdateState(false)
+          this.backendService.changeUpdateState(false);
         }),
         catchError((e) => {
           console.log(e);
@@ -280,6 +291,44 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  //add User
+  public onAddUser():void{
+    const user: IRegisteredUser = {
+      fullName: {
+        firstName: this.firstnName.value,
+        lastName: this.lastName.value,
+      },
+      idNumber: this.idNumber.value,
+      email: this.email.value,
+      password: this.password.value,
+      phoneNumber: this.phoneNumber.value,
+      dateOfBirth: this.dateOfBirth.value,
+      sex: this.sex.value,
+      status: this.addUser$.getValue(),
+    };
+    this.backendService.registerUser(user).pipe(
+      tap((v) => {
+        console.log(v), 
+        this.registerForm.reset();
+        this.backendService.changeAddUser('');
+        if(v.user.status === 'Student'){
+          this.backendService.changeStudents([...this.students$.getValue(), v.user])
+        }else if(v.user.status === 'Teacher'){
+          this.backendService.changeTeachers([...this.teachers$.getValue(), v.user])
+
+        }
+      }),
+      catchError((e) => {
+        console.log(e);
+        alert(
+          `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+        );
+        return of(null);
+      })
+    )
+    .subscribe();
   }
 
   //registerform getters

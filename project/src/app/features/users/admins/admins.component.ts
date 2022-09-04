@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Component({
@@ -10,8 +11,8 @@ import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminsComponent implements OnInit {
-  admins$: BehaviorSubject<IRegisteredUser[]> = new BehaviorSubject(
-    [] as IRegisteredUser[]
+  admins$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
   );
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private backendService: BackendService) {}

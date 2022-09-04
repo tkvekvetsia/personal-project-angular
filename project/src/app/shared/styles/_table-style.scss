@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  button{
+    margin-bottom: 20px;
+  }
   h3 {
     font-weight: bold;
     color: $required-color;
@@ -34,6 +37,7 @@
         button {
           color: $required-color;
           background-color: inherit;
+          margin-bottom: 0;
           &:hover {
             cursor: pointer;
           }

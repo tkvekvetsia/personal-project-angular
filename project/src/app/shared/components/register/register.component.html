@@ -156,9 +156,15 @@
         </ng-container>
         <ng-template #registerstate>
           <select class="input-style" formControlName="status">
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Admin">Admin</option>
+            <ng-container *ngIf="(addUser$ | async) !== 'Student'">
+              <option value="Teacher">Teacher</option>
+            </ng-container>
+            <ng-container *ngIf="(addUser$ | async) !== 'Teacher'">
+              <option value="Student">Student</option>
+            </ng-container>
+            <ng-container *ngIf="(addUser$ |async) === ''">
+              <option value="Admin">Admin</option>
+            </ng-container>
           </select>
         </ng-template>
 
@@ -169,7 +175,7 @@
         </ng-container>
       </label>
       <div class="buttons">
-        <ng-container *ngIf="!(updateState$ | async); else update">
+        <ng-container *ngIf="!(updateState$ | async) && !( addUser$ | async); else update">
           <button
             mat-stroked-button
             color="primary"
@@ -185,20 +191,39 @@
         </ng-container>
 
         <ng-template #update>
-          <button
-            type="button"
-            class="margin-right"
-            mat-stroked-button
-            color="primary"
-            [disabled]="
-              !registerForm.valid ||
-              (emailExistsError$ | async) ||
-              (idExistsError$ | async)
-            "
-            (click)="onUpdate()"
-          >
-            Update
-          </button>
+          <ng-container *ngIf="addUser$ | async; else updateButton">
+            <button
+              type="button"
+              class="margin-right"
+              mat-stroked-button
+              color="primary"
+              [disabled]="
+                !registerForm.valid ||
+                (emailExistsError$ | async) ||
+                (idExistsError$ | async)
+              "
+              (click)="onAddUser()"
+            >
+              Add User
+            </button>
+          </ng-container>
+
+          <ng-template #updateButton>
+            <button
+              type="button"
+              class="margin-right"
+              mat-stroked-button
+              color="primary"
+              [disabled]="
+                !registerForm.valid ||
+                (emailExistsError$ | async) ||
+                (idExistsError$ | async)
+              "
+              (click)="onUpdate()"
+            >
+              Update
+            </button>
+          </ng-template>
 
           <button
             type="button"

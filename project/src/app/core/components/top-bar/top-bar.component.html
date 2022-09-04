@@ -40,6 +40,11 @@
             Register
           </button>
         </ng-container>
+        <ng-container *ngIf="isLoggedIn$ | async">
+          <button mat-stroked-button color="primary"routerLink="/profile">
+            Profile
+          </button>
+        </ng-container>
 
         <ng-container *ngIf="isLoggedIn$ | async">
           <button mat-stroked-button color="primary" (click)="onLogOut()">

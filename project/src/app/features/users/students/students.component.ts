@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, filter, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Component({
@@ -10,12 +11,13 @@ import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
   styleUrls: ['./students.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StudentsComponent implements OnInit {
-  students$: BehaviorSubject<IRegisteredUser[]> = new BehaviorSubject(
-    [] as IRegisteredUser[]
+export class StudentsComponent implements OnInit, OnDestroy {
+  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
   );
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  addUser$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(
     private backendService: BackendService,
@@ -45,6 +47,14 @@ export class StudentsComponent implements OnInit {
 
     //atuhService variables
     this.isAdmin$ = this.atuhService.getIsAdmin();
+
+    //backendService variables
+    this.addUser$ = this.backendService.getAddUser();
+    this.students$ = this.backendService.getStudents()
+  }
+
+  ngOnDestroy(): void {
+    this.backendService.changeAddUser('');
   }
 
   public onDelete(id: number): void {
@@ -62,5 +72,10 @@ export class StudentsComponent implements OnInit {
       )      
     ).subscribe();
 
+   
+
+  }
+  public onAddUser():void{
+    this.backendService.changeAddUser("Student");
   }
 }

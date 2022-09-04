@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
+import { ILoggedUSer, ILoginResponse } from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Injectable({
@@ -12,18 +12,24 @@ export class BackendService {
   private updateState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private updateUserId$: BehaviorSubject<number> = new BehaviorSubject(-1);
   private loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
-  
+  private addUser$: BehaviorSubject<string> = new BehaviorSubject('');
+  private  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
+  );
+  private teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
+  );
 
   constructor(private http: HttpClient) {}
 
   //register user
-  public registerUser(body: IRegisteredUser): Observable<IRegisteredUser> {
-    return this.http.post<IRegisteredUser>(`${this.baseUrl}/register`, body);
+  public registerUser(body: IRegisteredUser): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(`${this.baseUrl}/register`, body);
   }
 
   //get all users
-  public getAllUsers(): Observable<IRegisteredUser[]> {
-    return this.http.get<IRegisteredUser[]>(`${this.baseUrl}/users`);
+  public getAllUsers(): Observable<ILoggedUSer[]> {
+    return this.http.get<ILoggedUSer[]>(`${this.baseUrl}/users`);
   }
 
   //update user
@@ -48,6 +54,18 @@ export class BackendService {
     return this.loggedUserEmail$;
   }
 
+  public getAddUser(): BehaviorSubject<string>{
+    return this.addUser$
+  }
+
+  public getStudents(): BehaviorSubject<ILoggedUSer[]>{
+    return this.students$
+  }
+
+  public getTeachers():BehaviorSubject<ILoggedUSer[]>{
+    return this.teachers$
+  }
+
   //change private datas
   public changeUpdateState(value: boolean): void {
     this.updateState$.next(value);
@@ -59,5 +77,17 @@ export class BackendService {
 
   public changeLoggedUserEmail(value: string): void {
     this.loggedUserEmail$.next(value);
+  }
+
+  public changeAddUser(value: string):void{
+    this.addUser$.next(value)
+  }
+
+  public changeStudents(value: ILoggedUSer[]): void{
+    this.students$.next(value);
+  }
+
+  public changeTeachers(value: ILoggedUSer[]): void{
+    this.teachers$.next(value)
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, of, ReplaySubject, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
@@ -10,7 +10,7 @@ import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
   updateState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   loggedUserEmail$: BehaviorSubject<string> =new BehaviorSubject('')
@@ -27,8 +27,10 @@ export class ProfileComponent implements OnInit {
     //backend service variables
     this.updateState$ = this.backendService.getUpdateState();
     this.loggedUserEmail$ = this.backendService.getLoggedUserEmail();
+  }
 
-    
+  ngOnDestroy(): void {
+    this.backendService.changeUpdateState(false);
   }
 
   public onUpdate(id: number, email:string): void {
