@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SubjectsComponent } from './subjects.component';
 import { AddSubjectComponent } from './add-subject/add-subject.component';
 import { SubjectListComponent } from './subject-list/subject-list.component';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +15,14 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
     SubjectListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    RouterModule.forChild([
+      {
+        path:'',
+        component: SubjectsComponent
+      }
+    ])
   ]
 })
 export class SubjectsModule { }

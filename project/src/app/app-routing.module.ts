@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'subjects',
     loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule),
-    canLoad: [AuthGuard]
+    // canLoad: [AuthGuard]
   },
   {
     path: "**",

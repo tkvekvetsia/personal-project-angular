@@ -13,4 +13,7 @@ export class AddSubjectComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onAddSubject():void{
+    
+  }
 }
