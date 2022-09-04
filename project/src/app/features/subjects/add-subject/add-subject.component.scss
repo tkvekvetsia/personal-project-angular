@@ -51,6 +51,11 @@
             box-shadow: 0 0 5px 0 $input-border-focus-color;
             outline: none;
           }
+
+          &.ng-touched.ng-invalid {
+            border-color:$required-color;
+            box-shadow: 0 0 5px $required-color;
+          }
         }
         .required-color {
           color: $required-color;

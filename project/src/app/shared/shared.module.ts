@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+
 
 
 @NgModule({
@@ -14,6 +13,6 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     MatButtonModule
   ],
-  exports:[RegisterComponent, MatButtonModule]
+  exports:[RegisterComponent, MatButtonModule, ReactiveFormsModule]
 })
 export class SharedModule { }
