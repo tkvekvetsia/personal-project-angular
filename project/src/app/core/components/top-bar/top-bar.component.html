@@ -8,7 +8,7 @@
       <ng-container *ngIf="isLoggedIn$ |async; else signIn" >
         <!-- ngIf="isLoggedIn |async; else signIn" -->
         <ul class="pages">
-          <li>
+          <li routerLink="/subjects">
             <a>Subjects</a>
           </li>
           <li (click)="onClickTeachers()">

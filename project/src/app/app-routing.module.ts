@@ -34,6 +34,11 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'subjects',
+    loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule),
+    canLoad: [AuthGuard]
+  },
+  {
     path: "**",
     component: PageNotFoundComponent
   }

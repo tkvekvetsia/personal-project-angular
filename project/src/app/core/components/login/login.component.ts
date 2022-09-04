@@ -45,11 +45,13 @@ export class LoginComponent implements OnInit {
         }),
         catchError((e) => {
           this.authErrorMessage$.next(e.error);
+          setTimeout(() => {
+            this.authErrorMessage$.next('')
+          }, 3000);
           return of(null);
         })
       )
       .subscribe();
 
-      
   }
 }
