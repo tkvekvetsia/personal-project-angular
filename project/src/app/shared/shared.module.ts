@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 
@@ -11,8 +13,9 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
-  exports:[RegisterComponent, MatButtonModule, ReactiveFormsModule]
+  exports:[RegisterComponent, MatButtonModule, ReactiveFormsModule,MatIconModule]
 })
 export class SharedModule { }

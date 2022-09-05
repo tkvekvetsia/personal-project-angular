@@ -14,4 +14,12 @@ export class SubjectService {
   public addSubject(body: ISubject ):Observable<ISubject>{
     return this.http.post<ISubject>(`${this.baseUrl}/subjects`, body);
   }
+
+  public getAllSubject():Observable<ISubject[]>{
+    return this.http.get<ISubject[]>(`${this.baseUrl}/subjects`);
+  }
+
+  public deleteSubject(id: number){
+    return this.http.delete(`${this.baseUrl}/subjects/${id}`)
+  }
 }

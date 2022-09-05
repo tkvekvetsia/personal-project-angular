@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ISubject, ISubjectForm } from '../interfaces/subject.interface';
-import { SubjectService } from '../services/subject.service';
-import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
+import { ISubject, ISubjectForm } from '../../interfaces/subject.interface';
+import { SubjectService } from '../../services/subject.service';
 @Component({
   selector: 'app-add-subject',
   templateUrl: './add-subject.component.html',
@@ -10,6 +15,9 @@ import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddSubjectComponent implements OnInit {
+  @Output() subject = new EventEmitter<ISubject>();
+  @Output() addState = new EventEmitter<boolean>();
+
   subjectFrom: FormGroup<ISubjectForm> = new FormGroup({
     subject: new FormControl<string>('', {
       nonNullable: true,
@@ -25,24 +33,16 @@ export class AddSubjectComponent implements OnInit {
     }),
   });
 
-  constructor(private subjectService: SubjectService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
   public onAddSubject(): void {
-    this.subjectService
-      .addSubject(this.subjectFrom.value as ISubject)
-      .pipe(
-        tap((v) => {
-          this.subjectFrom.reset();
-        }),
-        catchError((e) => {
-          alert(
-            `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
-          );
-          return of(null);
-        })
-      )
-      .subscribe();
+    this.subject.emit(this.subjectFrom.value as ISubject);
+    this.subjectFrom.reset();
+  }
+
+  public onCancel(): void {
+    this.addState.emit(false);
   }
 }

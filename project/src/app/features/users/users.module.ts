@@ -4,7 +4,6 @@ import { StudentsComponent } from './students/students.component';
 import { AdminsComponent } from './admins/admins.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { TeachersComponent } from './teachers/teachers.component';
-import {MatIconModule} from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
@@ -18,9 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    MatIconModule,
     SharedModule,
-    
   ]
 })
 export class UsersModule { }

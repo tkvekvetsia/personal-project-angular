@@ -30,8 +30,17 @@
         formControlName="description"
       ></textarea>
     </label>
-    <button mat-raised-button color="primary" (click)="onAddSubject()">
+   
+  </form>
+  <div class="buttons">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAddSubject()"
+      [disabled]="!subjectFrom.valid"
+    >
       Add Subject
     </button>
-  </form>
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  </div>
 </div>

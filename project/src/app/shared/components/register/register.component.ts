@@ -381,19 +381,5 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('status') as FormControl<string>;
   }
 
-  fill() {
-    this.registerForm.patchValue({
-      fullName: {
-        firstName: 'name',
-        lastName: 'lastname',
-      },
-      idNumber: 12345678911,
-      email: 'test@gmail.com',
-      passwordGroup: {
-        password: '123456789',
-        confirmPassword: '123456789',
-      },
-      phoneNumber: 995598423645,
-    });
-  }
+  
 }

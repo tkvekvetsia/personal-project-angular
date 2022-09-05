@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <ng-container *ngIf="addState$ | async; else subjectList">
+    <app-add-subject
+      (subject)="addSubject($event)"
+      (addState)="onChangeAddState($event)"
+    ></app-add-subject>
+  </ng-container>
+  <ng-template #subjectList>
+    <app-subject-list
+      (addState)="onChangeAddState($event)"
+      [subjects$]="subjects$"
+      [errorMessage$]="errorMessage$"
+      (deletedId)="onDeleteSubject($event)"
+    ></app-subject-list>
+  </ng-template>
+</div>
