@@ -15,6 +15,7 @@ import {
   tap,
 } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { ISubject } from '../../interfaces/subject.interface';
 import { SubjectService } from '../../services/subject.service';
 @Component({
@@ -29,7 +30,9 @@ export class SubjectListComponent implements OnInit {
     [] as ISubject[]
   );
   @Output() addState = new EventEmitter<boolean>();
-  @Output() deletedId = new EventEmitter<number>()
+  @Output() deletedId = new EventEmitter<number>();
+  @Input() user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
+
   constructor() {}
 
   ngOnInit(): void {

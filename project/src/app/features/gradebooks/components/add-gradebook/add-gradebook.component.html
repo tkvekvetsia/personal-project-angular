@@ -1,0 +1,44 @@
+<div class="card">
+    <h3>Add Gradebook for: <span>nick right</span></h3>
+    <p>ID: <span>123456789465798</span></p>
+    <form >
+      <label>
+        Subject:
+        <input
+          type="text"
+          class="input-style"
+          placeholder="Subject"
+          formControlName="subject"
+        />
+      </label>
+      <label>
+        Lesson:
+        <input
+          type="number"
+          class="input-style"
+          placeholder="Lessons"
+          formControlName="lessons"
+        />
+      </label>
+      <label>
+        Mark:
+        <input
+          class="input-style"
+          placeholder="Description"
+          maxlength="80"
+          formControlName="description"
+        >
+      </label>
+     
+    </form>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+      >
+        Add Subject
+      </button>
+      <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+  

@@ -1,48 +1,41 @@
-<ng-container >
-    <div class="container">
-      <ng-container *ngIf="errorMessage$ | async">
-        <h3>Something Went Wrong While Retrieving Data</h3>
-      </ng-container>
-      <ng-container>
-        <button mat-stroked-button color="primary" (click)="onAddSubject()">
-          Add subject
-        </button>
-      </ng-container>
-  
-      <ng-container *ngIf="errorMessage$ | async">
-        <h3>Something Went Wrong While Retrieving Data</h3>
-      </ng-container>
-  
-      <table>
-        <tr>
-          <th>Id</th>
-          <th>Subject</th>
-          <th>Lessons</th>
-          <th>description</th>
-        </tr>
-  
-        <ng-container *ngFor="let subject of subjects$ | async">
-          <tr>
-            <td>{{subject.id}}</td>
-            <td>{{ subject.subject }}</td>
-            <td>
-              {{subject.lessons}}
-            </td>
-            <td>{{ subject.description }}</td>
-            <ng-container>
-              <td class="button">
-                <button (click)="onDelete(subject.id!)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </ng-container>
-          </tr>
-        </ng-container>
-      </table>
-    </div>
+<div class="container">
+  <ng-container *ngIf="errorMessage$ | async">
+    <h3>Something Went Wrong While Retrieving Data</h3>
   </ng-container>
-  
-  <ng-template #addUser>
-    <app-register></app-register>
-  </ng-template>
-  
+  <ng-container *ngIf="(user$ | async)?.status !== 'Student'">
+    <button mat-stroked-button color="primary" (click)="onAddSubject()">
+      Add subject
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="errorMessage$ | async">
+    <h3>Something Went Wrong While Retrieving Data</h3>
+  </ng-container>
+
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Subject</th>
+      <th>Lessons</th>
+      <th>description</th>
+    </tr>
+
+    <ng-container *ngFor="let subject of subjects$ | async">
+      <tr>
+        <td>{{ subject.id }}</td>
+        <td>{{ subject.subject }}</td>
+        <td>
+          {{ subject.lessons }}
+        </td>
+        <td>{{ subject.description }}</td>
+        <ng-container *ngIf="(user$ | async)?.status !== 'Student'">
+          <td class="button">
+            <button (click)="onDelete(subject.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </table>
+</div>

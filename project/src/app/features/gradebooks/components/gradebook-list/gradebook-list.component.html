@@ -1,0 +1,22 @@
+<div class="container">
+  <ng-container *ngIf="errorMessage$ | async">
+    <h3>Something Went Wrong While Retrieving Data</h3>
+  </ng-container>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Gradebook</th>
+    </tr>
+
+    <ng-container *ngFor="let student of students$ | async">
+      <tr>
+        <td>{{ student.idNumber }}</td>
+        <td>
+          {{ student.fullName.firstName }} {{ student.fullName.lastName }}
+        </td>
+        <td> <button mat-stroked-button color="warn" (click)="onAdd()">Add</button></td>
+      </tr>
+    </ng-container>
+  </table>
+</div>

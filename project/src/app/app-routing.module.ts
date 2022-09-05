@@ -39,6 +39,11 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'gradebooks',
+    loadChildren: () => import('./features/gradebooks/gradebooks.module').then(m => m.GradebooksModule),
+    // canLoad: [AuthGuard]
+  },
+  {
     path: "**",
     component: PageNotFoundComponent
   }

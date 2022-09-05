@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <ng-container *ngIf="addState$ | async; else gradebookList"> 
+    <app-add-gradebook></app-add-gradebook>
+  </ng-container>
+  <ng-template #gradebookList>
+    <app-gradebook-list
+      [students$]="students$"
+      [errorMessage$]="errorMessage$"
+      (addGradebook)="onChangeAddState($event)"
+    ></app-gradebook-list>
+  </ng-template>
+</div>

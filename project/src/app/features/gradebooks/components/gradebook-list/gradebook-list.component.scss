@@ -1,0 +1,16 @@
+@import "../../../../shared/styles/media-quaries";
+@import "../../../../shared/styles/palette";
+@import '../../../../shared/styles/table-style';
+
+.container{
+    table{
+        width: 600px;
+        tr{
+            td{
+                button{
+                    border: none;
+                }
+            }
+        }
+    }
+}
