@@ -1,9 +1,9 @@
 import {  NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from 'src/app/shared/guards/admin.guard';
-import { AdminsComponent } from './admins/admins.component';
-import { StudentsComponent } from './students/students.component';
-import { TeachersComponent } from './teachers/teachers.component';
+import { AdminsComponent } from './components/admins/admins.component';
+import { StudentsComponent } from './components/students/students.component';
+import { TeachersComponent } from './components/teachers/teachers.component';
 
 
 
