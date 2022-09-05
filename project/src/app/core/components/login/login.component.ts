@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         tap((v) => {
           this.authErrorMessage$.next('');
-          console.log(v);
-          // localStorage.setItem('auth_access', v.accessToken);
+          // console.log(v);
           this.authService.changeLoggedState(true);
           this.authService.changeLoggedUser(v.user)
           this.router.navigateByUrl('/profile');

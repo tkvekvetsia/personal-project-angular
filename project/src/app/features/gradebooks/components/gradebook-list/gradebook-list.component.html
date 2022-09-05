@@ -9,13 +9,13 @@
       <th>Gradebook</th>
     </tr>
 
-    <ng-container *ngFor="let student of students$ | async">
+    <ng-container *ngFor="let student of arrOfStudent$ | async">
       <tr>
         <td>{{ student.idNumber }}</td>
         <td>
-          {{ student.fullName.firstName }} {{ student.fullName.lastName }}
+          {{ student.fullName.firstName}} {{ student.fullName.lastName}} 
         </td>
-        <td> <button mat-stroked-button color="warn" (click)="onAdd()">Add</button></td>
+        <td> <button mat-stroked-button color="warn" (click)="onAdd(student)">Add</button></td>
       </tr>
     </ng-container>
   </table>

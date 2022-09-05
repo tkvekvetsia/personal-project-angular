@@ -238,7 +238,7 @@ export class RegisterComponent implements OnInit {
       .registerUser(user)
       .pipe(
         tap((v) => {
-          console.log(v);
+          // console.log(v);
           
           this.registerForm.reset();
           this.router.navigateByUrl('/login');
@@ -283,7 +283,7 @@ export class RegisterComponent implements OnInit {
           this.backendService.changeUpdateState(false);
         }),
         catchError((e) => {
-          console.log(e);
+          // console.log(e);
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
           );
@@ -310,7 +310,7 @@ export class RegisterComponent implements OnInit {
     };
     this.backendService.registerUser(user).pipe(
       tap((v) => {
-        console.log(v), 
+        // console.log(v), 
         this.registerForm.reset();
         this.backendService.changeAddUser('');
         if(v.user.status === 'Student'){
@@ -321,7 +321,7 @@ export class RegisterComponent implements OnInit {
         }
       }),
       catchError((e) => {
-        console.log(e);
+        // console.log(e);
         alert(
           `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
         );

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { ILoggedUSer, ILoginResponse } from 'src/app/shared/itnerfaces/login.interface';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import {
+  ILoggedUSer,
+  ILoginResponse,
+} from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Injectable({
@@ -13,23 +16,36 @@ export class BackendService {
   private updateUserId$: BehaviorSubject<number> = new BehaviorSubject(-1);
   private loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
   private addUser$: BehaviorSubject<string> = new BehaviorSubject('');
-  private  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+  private students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
     [] as ILoggedUSer[]
   );
   private teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
     [] as ILoggedUSer[]
   );
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+   
+  ) {}
 
   //register user
   public registerUser(body: IRegisteredUser): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.baseUrl}/register`, body);
+    return this.http
+      .post<ILoginResponse>(`${this.baseUrl}/register`, body);
   }
 
   //get all users
   public getAllUsers(): Observable<ILoggedUSer[]> {
     return this.http.get<ILoggedUSer[]>(`${this.baseUrl}/users`);
+  }
+  //get users with same status
+  public getSpecificUsers(status: string):Observable<ILoggedUSer[]>{
+    return this.getAllUsers().pipe(
+      map(v => {
+        const arr = v.filter((value) => value.status === status);
+        return arr;
+      })
+    )
   }
 
   //update user
@@ -54,16 +70,16 @@ export class BackendService {
     return this.loggedUserEmail$;
   }
 
-  public getAddUser(): BehaviorSubject<string>{
-    return this.addUser$
+  public getAddUser(): BehaviorSubject<string> {
+    return this.addUser$;
   }
 
-  public getStudents(): BehaviorSubject<ILoggedUSer[]>{
-    return this.students$
+  public getStudents(): BehaviorSubject<ILoggedUSer[]> {
+    return this.students$;
   }
 
-  public getTeachers():BehaviorSubject<ILoggedUSer[]>{
-    return this.teachers$
+  public getTeachers(): BehaviorSubject<ILoggedUSer[]> {
+    return this.teachers$;
   }
 
   //change private datas
@@ -79,15 +95,15 @@ export class BackendService {
     this.loggedUserEmail$.next(value);
   }
 
-  public changeAddUser(value: string):void{
-    this.addUser$.next(value)
+  public changeAddUser(value: string): void {
+    this.addUser$.next(value);
   }
 
-  public changeStudents(value: ILoggedUSer[]): void{
+  public changeStudents(value: ILoggedUSer[]): void {
     this.students$.next(value);
   }
 
-  public changeTeachers(value: ILoggedUSer[]): void{
-    this.teachers$.next(value)
+  public changeTeachers(value: ILoggedUSer[]): void {
+    this.teachers$.next(value);
   }
 }

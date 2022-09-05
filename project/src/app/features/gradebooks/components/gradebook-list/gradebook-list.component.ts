@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
+import { IRecord } from '../../interfaces/gradebook.interface';
+
 
 
 @Component({
@@ -10,17 +12,18 @@ import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GradebookListComponent implements OnInit {
-  @Input()  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
-    [] as ILoggedUSer[]
+  @Input() arrOfStudent$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[])
+  @Input()  arrOfGradebooks$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
+    [] as IRecord[]
   );
   @Input() errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  @Output() addGradebook = new EventEmitter()
+  @Output() student = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public onAdd():void{
-    this.addGradebook.emit(true);
+  public onAdd(student: ILoggedUSer):void{
+    this.student.emit(student);
   }
 }

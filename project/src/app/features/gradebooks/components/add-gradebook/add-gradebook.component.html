@@ -1,44 +1,29 @@
-<div class="card">
-    <h3>Add Gradebook for: <span>nick right</span></h3>
-    <p>ID: <span>123456789465798</span></p>
-    <form >
-      <label>
-        Subject:
-        <input
-          type="text"
-          class="input-style"
-          placeholder="Subject"
-          formControlName="subject"
-        />
-      </label>
-      <label>
-        Lesson:
-        <input
-          type="number"
-          class="input-style"
-          placeholder="Lessons"
-          formControlName="lessons"
-        />
-      </label>
-      <label>
-        Mark:
-        <input
-          class="input-style"
-          placeholder="Description"
-          maxlength="80"
-          formControlName="description"
-        >
-      </label>
+<div class="card" *ngIf="student$ | async as student">
+  <h3>Add Gradebook for: <span>{{student.fullName.firstName}} {{student.fullName.lastName}}</span></h3>
+  <p>ID: <span>{{student.idNumber}}</span></p>
+  <form [formGroup]="recordForm">
+    <label>
+      Subject:
+      <select formControlName="subject"  class="input-style">
+        <ng-container *ngIf="arrOfSubject$ | async as arrOfSubject">
+          <ng-container *ngFor="let subject of arrOfSubject">
+            <option  [value]="subject.subject">{{subject.subject}}</option>
+          </ng-container>
+        </ng-container>
      
-    </form>
-    <div class="buttons">
-      <button
-        mat-raised-button
-        color="primary"
-      >
-        Add Subject
-      </button>
-      <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-    </div>
+      </select>
+    </label>
+    <label>
+      Lesson:
+      <input type="number" class="input-style" placeholder="Lessons" formControlName="lesson" />
+    </label>
+    <label>
+      Mark:
+      <input class="input-style" placeholder="Mark"  formControlName="mark" />
+    </label>
+  </form>
+  <div class="buttons">
+    <button mat-raised-button color="primary" [disabled]="!recordForm.valid" (click)="addRecord()">Add Record</button>
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
   </div>
-  
+</div>

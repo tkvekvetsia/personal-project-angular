@@ -1,12 +1,19 @@
 <div class="wrapper">
-  <ng-container *ngIf="addState$ | async; else gradebookList"> 
-    <app-add-gradebook></app-add-gradebook>
+  <ng-container *ngIf="addState$ | async; else gradebookList">
+    <app-add-gradebook
+      [student$]="student$"
+      [arrOfSubject$]="arrOfSubject$"
+      [loggedUser$]="loggedUser$"
+      (record)="registerRecord($event)"
+      (cancel)="onCancel()"
+    ></app-add-gradebook>
   </ng-container>
   <ng-template #gradebookList>
     <app-gradebook-list
-      [students$]="students$"
+      [arrOfStudent$]="arrOfStudents$"
+      [arrOfGradebooks$]="arrOfGradebooks$"
       [errorMessage$]="errorMessage$"
-      (addGradebook)="onChangeAddState($event)"
+      (student)="onAdd($event)"
     ></app-gradebook-list>
   </ng-template>
 </div>
