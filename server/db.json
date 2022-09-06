@@ -183,36 +183,6 @@
   ],
   "gradebooks": [
     {
-      "student": "laura lastname",
-      "studentIdNumber": 12345678911,
-      "teacher": "gurama lastname",
-      "subject": "history",
-      "lesson": 12,
-      "mark": 12,
-      "date": "09/06/2022",
-      "id": 1
-    },
-    {
-      "student": "laura lastname",
-      "studentIdNumber": 12345678911,
-      "teacher": "gurama lastname",
-      "subject": "history",
-      "lesson": 13,
-      "mark": 13,
-      "date": "09/06/2022",
-      "id": 2
-    },
-    {
-      "student": "tyson co",
-      "studentIdNumber": 12345678918,
-      "teacher": "gurama lastname",
-      "subject": "geography",
-      "lesson": 13,
-      "mark": 13,
-      "date": "09/06/2022",
-      "id": 3
-    },
-    {
       "student": "tyson co",
       "studentIdNumber": 12345678918,
       "teacher": "gurama lastname",
@@ -233,16 +203,6 @@
       "id": 5
     },
     {
-      "student": "mick mouse",
-      "studentIdNumber": 12345678984,
-      "teacher": "gurama lastname",
-      "subject": "history",
-      "lesson": 13,
-      "mark": 13,
-      "date": "09/06/2022",
-      "id": 6
-    },
-    {
       "student": "laura lastname",
       "studentIdNumber": 12345678911,
       "teacher": "gurama lastname",
@@ -251,6 +211,46 @@
       "mark": 2,
       "date": "09/06/2022",
       "id": 7
+    },
+    {
+      "student": "laura lastname",
+      "studentIdNumber": 12345678911,
+      "teacher": "gurama lastname",
+      "subject": "math",
+      "lesson": 2,
+      "mark": 2,
+      "date": "09/06/2022",
+      "id": 8
+    },
+    {
+      "student": "mick mouse",
+      "studentIdNumber": 12345678984,
+      "teacher": "gurama lastname",
+      "subject": "math",
+      "lesson": 1,
+      "mark": 1,
+      "date": "09/06/2022",
+      "id": 9
+    },
+    {
+      "student": "mick mouse",
+      "studentIdNumber": 12345678984,
+      "teacher": "gurama lastname",
+      "subject": "math",
+      "lesson": 12,
+      "mark": 10,
+      "date": "09/06/2022",
+      "id": 10
+    },
+    {
+      "student": "mick mouse",
+      "studentIdNumber": 12345678984,
+      "teacher": "gurama lastname",
+      "subject": "history",
+      "lesson": 2,
+      "mark": "10",
+      "date": "09/06/2022",
+      "id": 11
     }
   ]
 }
