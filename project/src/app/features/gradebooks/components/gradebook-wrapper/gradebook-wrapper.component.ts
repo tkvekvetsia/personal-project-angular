@@ -4,9 +4,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { ISubject } from 'src/app/features/subjects/interfaces/subject.interface';
 import { SubjectService } from 'src/app/features/subjects/services/subject.service';
-import {
-  ILoggedUSer,
-} from 'src/app/shared/itnerfaces/login.interface';
+import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
+import { GpaService } from 'src/app/shared/services/gpa.service';
 import { IRecord } from '../../interfaces/gradebook.interface';
 import { GradebookService } from '../../services/gradebook.service';
 
@@ -35,35 +34,41 @@ export class GradebookWrapperComponent implements OnInit {
     {} as ILoggedUSer
   );
   showPersonalGradebook$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  personalGradebook$: BehaviorSubject<IRecord[]> = new BehaviorSubject([] as IRecord[])
+  personalGradebook$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
+    [] as IRecord[]
+  );
+  gpa$: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(
     private backendService: BackendService,
     private subjectService: SubjectService,
     private authService: AuthService,
-    private gradebookService: GradebookService
+    private gradebookService: GradebookService,
+    private gpaService: GpaService
   ) {}
-  private getStudentRecords(idNumber: number): IRecord[] {
+  private getPersonalGradebook(idNumber: number): void {
     const gradebooks = this.gradebooks$.getValue();
-    const arr = gradebooks.filter(v => v.studentIdNumber === idNumber);
-    return arr;
-  }  
-  
-  ngOnInit(): void {
-    
+    const arr = gradebooks.filter((v) => v.studentIdNumber === idNumber);
+    this.personalGradebook$.next(arr);
+  }
 
-    //gradebookService 
-    this.gradebookService.getAllRecord()
-    .pipe(
-      tap(v => {
-        this.gradebooks$.next(v);
-        if(this.loggedUser$.getValue().status === 'Student'){
-          this.onClickIdNumber(this.loggedUser$.getValue().idNumber);
-          this.showPersonalGradebook$.next(true);
-        }
-      })
-    )
-    .subscribe()
+  ngOnInit(): void {
+
+    //gpaService variables
+    this.gpa$ = this.gpaService.getGpa();
+    //gradebookService
+    this.gradebookService
+      .getAllRecord()
+      .pipe(
+        tap((v) => {
+          this.gradebooks$.next(v);
+          if (this.loggedUser$.getValue().status === 'Student') {
+            this.onClickIdNumber(this.loggedUser$.getValue().idNumber);
+            this.showPersonalGradebook$.next(true);
+          }
+        })
+      )
+      .subscribe();
     //backendService variables
     this.backendService
       .getSpecificUsers('Student')
@@ -84,20 +89,19 @@ export class GradebookWrapperComponent implements OnInit {
       .pipe(
         tap((v) => {
           this.arrOfSubject$.next(v);
+          this.gpa$.next(this.calculateGpa());
         })
       )
       .subscribe();
 
     //authService: variables
     this.loggedUser$ = this.authService.getLoggedUser();
-
-    //for student
-  
   }
 
   public onAdd(value: ILoggedUSer): void {
     this.addState$.next(true);
     this.student$.next(value);
+    
   }
 
   public registerRecord(value: IRecord): void {
@@ -108,7 +112,7 @@ export class GradebookWrapperComponent implements OnInit {
           this.addState$.next(false);
           this.student$.next({} as ILoggedUSer);
           alert('Record Added Successfully');
-          this.gradebooks$.next([...this.gradebooks$.getValue(), v])
+          this.gradebooks$.next([...this.gradebooks$.getValue(), v]);
         }),
         catchError((e) => {
           alert(
@@ -123,13 +127,26 @@ export class GradebookWrapperComponent implements OnInit {
     this.addState$.next(false);
   }
 
-  public onDisplayPersonalGradebook(value: boolean){
-      this.showPersonalGradebook$.next(value);
+  public onDisplayPersonalGradebook(value: boolean) {
+    this.showPersonalGradebook$.next(value);
   }
 
-  public onClickIdNumber(idNumber: number){
-    const arr: IRecord[] = this.getStudentRecords(idNumber);
-    this.personalGradebook$.next(arr);
-    // console.log(this.personalGradebook$.getValue());   
+  public onClickIdNumber(idNumber: number) {
+    this.getPersonalGradebook(idNumber);
+    this.gpa$.next(this.calculateGpa());
+    // console.log(this.personalGradebook$.getValue());
+  }
+
+  public calculateGpa(): number {
+    const subjects: Array<string> = this.arrOfSubject$
+      .getValue()
+      .map((v) => v.subject);
+    if (this.personalGradebook$.getValue().length) {
+      return this.gpaService.gpaCalculator(
+        subjects,
+        this.personalGradebook$.getValue()
+      );
+    }
+    return 0;
   }
 }

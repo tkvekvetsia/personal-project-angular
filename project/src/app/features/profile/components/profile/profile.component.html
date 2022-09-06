@@ -1,24 +1,47 @@
-
 <ng-container *ngIf="!(updateState$ | async); else update">
   <div class="container">
     <div class="card" *ngIf="loggedUser$ | async as loggedUser">
       <h3>Personal Information</h3>
       <div class="personal-information border">
-          <p> <span>Name:</span> &nbsp; &nbsp;  {{loggedUser.fullName.firstName}} {{loggedUser.fullName.lastName}}</p>
-          <p><span>ID Number:</span> &nbsp; &nbsp;  {{loggedUser.idNumber}} </p>
-          <p> <span>Date Of Birth:</span> &nbsp; &nbsp;  {{loggedUser.dateOfBirth}}</p>
-          <p> <span>sex:</span> &nbsp; &nbsp;  {{loggedUser.sex}}</p>
-          <p> <span>Occupation:</span> &nbsp; &nbsp;  {{loggedUser.status}}</p>
+        <p>
+          <span>Name:</span> &nbsp; &nbsp; {{ loggedUser.fullName.firstName }}
+          {{ loggedUser.fullName.lastName }}
+        </p>
+        <p><span>ID Number:</span> &nbsp; &nbsp; {{ loggedUser.idNumber }}</p>
+        <p>
+          <span>Date Of Birth:</span> &nbsp; &nbsp; {{ loggedUser.dateOfBirth }}
+        </p>
+        <p><span>sex:</span> &nbsp; &nbsp; {{ loggedUser.sex }}</p>
+        <p><span>Occupation:</span> &nbsp; &nbsp; {{ loggedUser.status }}</p>
       </div>
       <h3>Contact Information</h3>
       <div class="contact border">
-          <p> <span>Email:</span> &nbsp; &nbsp;  {{loggedUser.email}} </p>
-          <p><span>Phone:</span>&nbsp; &nbsp;  {{loggedUser.phoneNumber}} </p>
+        <p><span>Email:</span> &nbsp; &nbsp; {{ loggedUser.email }}</p>
+        <p><span>Phone:</span>&nbsp; &nbsp; {{ loggedUser.phoneNumber }}</p>
       </div>
       <div class="buttons">
-          <button mat-raised-button color="primary" (click)="onUpdate(loggedUser.id, loggedUser.email)" >Update</button>
-          <button mat-raised-button color="warn" (click)="onDelete()" >Delete</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onUpdate(loggedUser.id, loggedUser.email)"
+        >
+          Update
+        </button>
+        <button mat-raised-button color="warn" (click)="onDelete()">
+          Delete
+        </button>
       </div>
+      <ng-container *ngIf="(loggedUser$ | async)?.status === 'Student'">
+        <!--needs optimization,  doesn't show up until gradebook is laoded -->
+        <ng-container *ngIf="gpa$ | async as gpa">
+          <div class="badge">
+            <i
+              class="fas fa-medal fa-border fa-3x"
+              [ngClass]="{ noob: gpa < 1 }"
+            ></i>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </ng-container>

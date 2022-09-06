@@ -40,7 +40,70 @@ export class RegisterComponent implements OnInit, OnDestroy {
   addUser$: BehaviorSubject<string> = new BehaviorSubject('');  
   students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
   teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
-  subscription: Subscription = new Subscription()
+  subscription: Subscription = new Subscription();
+   //register form
+   registerForm: FormGroup<IRegisterForm> = new FormGroup({
+    fullName: new FormGroup<IFullNameFormGroup>({
+      firstName: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)],
+      }),
+      lastName: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)],
+      }),
+    }),
+    idNumber: new FormControl<number | null>(null, {
+      nonNullable: true,
+      validators: [
+        // Validators.minLength(11),
+        Validators.pattern(
+          /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
+        ),
+        Validators.required,
+      ], //minlengt doesn't work for some misterious reason
+    }),
+    email: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    passwordGroup: new FormGroup(
+      {
+        password: new FormControl<string>('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.minLength(8)],
+        }),
+        confirmPassword: new FormControl<string>('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }), //confirm password
+      },
+      [matchValidator('password', 'confirmPassword')]
+    ),
+    phoneNumber: new FormControl<number | null>(null, {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.pattern(
+          /\+995[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
+        ),
+        Validators.minLength(13),
+        Validators.maxLength(13),
+      ],
+    }),
+    dateOfBirth: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    sex: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    status: new FormControl<string>('teacher', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
   constructor(
     private backendService: BackendService,
@@ -178,69 +241,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   }
 
-  //register form
-  registerForm: FormGroup<IRegisterForm> = new FormGroup({
-    fullName: new FormGroup<IFullNameFormGroup>({
-      firstName: new FormControl<string>('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)],
-      }),
-      lastName: new FormControl<string>('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)],
-      }),
-    }),
-    idNumber: new FormControl<number | null>(null, {
-      nonNullable: true,
-      validators: [
-        // Validators.minLength(11),
-        Validators.pattern(
-          /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
-        ),
-        Validators.required,
-      ], //minlengt doesn't work for some misterious reason
-    }),
-    email: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email],
-    }),
-    passwordGroup: new FormGroup(
-      {
-        password: new FormControl<string>('', {
-          nonNullable: true,
-          validators: [Validators.required, Validators.minLength(8)],
-        }),
-        confirmPassword: new FormControl<string>('', {
-          nonNullable: true,
-          validators: [Validators.required],
-        }), //confirm password
-      },
-      [matchValidator('password', 'confirmPassword')]
-    ),
-    phoneNumber: new FormControl<number | null>(null, {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.pattern(
-          /\+995[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/
-        ),
-        Validators.minLength(13),
-        Validators.maxLength(13),
-      ],
-    }),
-    dateOfBirth: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    sex: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    status: new FormControl<string>('teacher', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-  });
+ 
 
   //register user
   public onRegister(): void {

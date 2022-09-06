@@ -72,7 +72,7 @@ export class AddGradebookComponent implements OnInit {
       teacher: teacher,
       subject: this.subject.value as string,
       lesson: this.lesson.value as number,
-      mark: this.lesson.value as number,
+      mark: this.mark.value as number,
       date: today
     } 
 
