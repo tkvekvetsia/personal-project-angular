@@ -8,19 +8,21 @@ import {
   ILoginUser,
 } from 'src/app/shared/itnerfaces/login.interface';
 import { BackendService } from './backend.service';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   baseUrl: string = 'http://localhost:3000';
-  private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!this.tokenStorageService.getToken());
   private loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
-    {} as ILoggedUSer
+    this.tokenStorageService.getUser()
   );
-  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(this.tokenStorageService.getUser()?.status === "Admin");
 
   constructor(
+    private tokenStorageService: TokenStorageService,
     private http: HttpClient,
     private backendService: BackendService,
     private router: Router
@@ -28,13 +30,7 @@ export class AuthService {
 
   public login(body: ILoginUser): Observable<ILoginResponse> {
     return this.http.post<ILoginResponse>(`${this.baseUrl}/login`, body).pipe(
-      tap((v) => {
-        if (v.user.status === 'Admin') {
-          this.isAdmin$.next(true);
-        } else {
-          this.isAdmin$.next(false);
-        }
-      })
+   
     );
   }
 
@@ -45,9 +41,13 @@ export class AuthService {
     this.changeLoggedState(false);
     this.backendService.changeUpdateState(false);
     this.changeLoggedUser({} as ILoggedUSer);
+    
     // this.backendService.
     this.router.navigateByUrl('/login');
     this.isAdmin$.next(false);
+    this.tokenStorageService.logOut();
+    window.location.reload();
+    
   }
 
   //getters

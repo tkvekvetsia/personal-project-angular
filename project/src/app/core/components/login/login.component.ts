@@ -7,6 +7,7 @@ import {
   ILoginUser,
 } from 'src/app/shared/itnerfaces/login.interface';
 import { AuthService } from '../../services/auth.service';
+import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private tokenStorageService: TokenStorageService) {}
   authErrorMessage$: BehaviorSubject<string> = new BehaviorSubject('');
   ngOnInit(): void {}
 
@@ -38,8 +39,11 @@ export class LoginComponent implements OnInit {
         tap((v) => {
           this.authErrorMessage$.next('');
           // console.log(v);
-          this.authService.changeLoggedState(true);
-          this.authService.changeLoggedUser(v.user);
+          this.tokenStorageService.saveToken(v.accessToken);
+          this.tokenStorageService.saveUser(v.user)
+          this.authService.changeLoggedState(!!this.tokenStorageService.getToken()); 
+          window.location.reload();
+          // this.authService.changeLoggedUser(v.user);
           this.router.navigateByUrl('/profile');
         }),
         catchError((e) => {

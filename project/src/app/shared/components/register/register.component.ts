@@ -11,6 +11,7 @@ import {
 } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import {
   IFullNameFormGroup,
   IRegisteredUser,
@@ -44,7 +45,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     private backendService: BackendService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +99,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     this.emailExistsError$.next(false);
                   } else if (
                     index >= 0 &&
-                    this.email.value !== this.loggedUser$.getValue().email
+                    this.email.value !== this.loggedUser$.getValue()?.email
                   ) {
                     this.emailExistsError$.next(true);
                   }
@@ -124,12 +126,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
                   );
                   if (
                     index < 0 ||
-                    this.idNumber.value == this.loggedUser$.getValue().idNumber
+                    this.idNumber.value == this.loggedUser$.getValue()?.idNumber
                   ) {
                     this.idExistsError$.next(false);
                   } else if (
                     index >= 0 &&
-                    this.idNumber.value !== this.loggedUser$.getValue().idNumber
+                    this.idNumber.value !== this.loggedUser$.getValue()?.idNumber
                   ) {
                     this.idExistsError$.next(true);
                   }
@@ -301,6 +303,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .pipe(
         tap((v) => {
           this.authService.changeLoggedUser(v);
+          this.tokenStorageService.saveUser(v);          
           this.registerForm.reset();
           this.backendService.changeUpdateState(false);
         }),

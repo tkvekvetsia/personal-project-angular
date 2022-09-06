@@ -2,10 +2,10 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "password": "$2a$10$1gM0PWqMXgH.MbDBn4L3NeP1bZ.7XB4viqVYk74zW//JHYqX.Mwm2",
+      "password": "$2a$10$nP0XUGGpTUqd6k7C32vSFuMTPgs5gE2B.GTDK4s8ju0SGzFZbgxxO",
       "fullName": {
         "firstName": "admin",
-        "lastName": "admin"
+        "lastName": "adminadze"
       },
       "idNumber": 12345678912,
       "phoneNumber": "+995598464646",
@@ -27,48 +27,6 @@
       "sex": "Male",
       "status": "Admin",
       "id": 8
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "$2a$10$VrcfgjonwKF/fBD8uMmr0uG0NWWf7YNAfHom4qRP0Ouwt/uxFNBiy",
-      "fullName": {
-        "firstName": "name",
-        "lastName": "lastname"
-      },
-      "idNumber": 12345678918,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-12",
-      "sex": "Male",
-      "status": "Student",
-      "id": 9
-    },
-    {
-      "email": "f@gmail.com",
-      "password": "$2a$10$0jsf2nt73Hwg1RHXOTJ/i.pcHWM32ErjqdcTk0VCxucqGoCUGuoza",
-      "fullName": {
-        "firstName": "name",
-        "lastName": "lastname"
-      },
-      "idNumber": 12345678921,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-06",
-      "sex": "Male",
-      "status": "Student",
-      "id": 12
-    },
-    {
-      "email": "student3@gmail.com",
-      "password": "$2a$10$.NZF0UPzUy3GotR5QgLw1udB.ySQOyaKMQ4c7aVMZtCrLtARFyNZS",
-      "fullName": {
-        "firstName": "name",
-        "lastName": "lastname"
-      },
-      "idNumber": 12345678916,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-22",
-      "sex": "Female",
-      "status": "Student",
-      "id": 13
     },
     {
       "email": "teacher@gmail.com",
@@ -99,20 +57,6 @@
       "id": 15
     },
     {
-      "email": "r@gmail.com",
-      "password": "$2a$10$9JUdIr5DtGqtoCgtRSSJEOv5L8lL61ItU2rgSGTxcXzISsQAjDUXu",
-      "fullName": {
-        "firstName": "name",
-        "lastName": "lastname"
-      },
-      "idNumber": 12345678913,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-06",
-      "sex": "Male",
-      "status": "Student",
-      "id": 16
-    },
-    {
       "email": "laura@gmail.com",
       "password": "$2a$10$DrXVOydi6WqmO490sCOhx.aIKo9wRet84xXfAZAQ6/tv/pt2ypMBa",
       "fullName": {
@@ -127,18 +71,186 @@
       "id": 17
     },
     {
-      "email": "ff@gmail.com",
-      "password": "$2a$10$Tg8IQ1l5hGBnDAEVOn4L1OwNT4zdV7kSz7ANPQdaCPDm0NtkZAMNu",
+      "email": "student@gmail.com",
+      "password": "$2a$10$k.rsx2vr3WM/mQbu2lZrS.SguUXAkgh1KffIdHtFbe6yPQalp.Qvi",
       "fullName": {
-        "firstName": "ra",
+        "firstName": "laura",
         "lastName": "lastname"
       },
-      "idNumber": 12345689119,
-      "phoneNumber": "+995598423645",
-      "dateOfBirth": "2022-09-22",
+      "idNumber": 12345678911,
+      "phoneNumber": "+995598484848",
+      "dateOfBirth": "2022-09-05",
+      "sex": "Female",
+      "status": "Student",
+      "id": 19
+    },
+    {
+      "email": "jon@gmail.com",
+      "password": "$2a$10$79inult32vo0w2AcgBJJfOpa4c93lRtKpW.0FxWZWvilNr8TlhIGa",
+      "fullName": {
+        "firstName": "jon",
+        "lastName": "doe"
+      },
+      "idNumber": 45612378949,
+      "phoneNumber": "+995595959595",
+      "dateOfBirth": "2022-09-06",
       "sex": "Male",
-      "status": "Teacher",
-      "id": 18
+      "status": "teacher",
+      "id": 21
+    },
+    {
+      "email": "nick@gmail.com",
+      "password": "$2a$10$hfQl3Qomco4LzEqcPtIH6OqXYAbBTStWebUkVvbDopMnCFyMR3SPG",
+      "fullName": {
+        "firstName": "nick",
+        "lastName": "right"
+      },
+      "idNumber": 12345678954,
+      "phoneNumber": "+995598464646",
+      "dateOfBirth": "2022-09-05",
+      "sex": "Male",
+      "status": "Student",
+      "id": 22
+    },
+    {
+      "email": "mick@gmail.com",
+      "password": "$2a$10$08bgnTJWyRKkg6CoSfNppuEVjIxAjbx/DNEJxOcriAxwxaHHuq6.i",
+      "fullName": {
+        "firstName": "mick",
+        "lastName": "mouse"
+      },
+      "idNumber": 12345678984,
+      "phoneNumber": "+995599989898",
+      "dateOfBirth": "1212-12-12",
+      "sex": "Male",
+      "status": "Student",
+      "id": 23
+    },
+    {
+      "email": "admin3@gmail.com",
+      "password": "$2a$10$16IaPPdlHQYddiywL6oQWuli7mDYkLtyyEbcrtP66JaeXXNL4oUOG",
+      "fullName": {
+        "firstName": "fadmin",
+        "lastName": "fadmin"
+      },
+      "idNumber": 12345678918,
+      "phoneNumber": "+995598454545",
+      "dateOfBirth": "2022-09-05",
+      "sex": "Female",
+      "status": "Admin",
+      "id": 25
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "$2a$10$fL1hEaknkGd77CbXgAnFwO1833gpDA/nzmd2i3jZT4IUK0llapCua",
+      "fullName": {
+        "firstName": "test",
+        "lastName": "test"
+      },
+      "idNumber": 12345678917,
+      "phoneNumber": "+995588888888",
+      "dateOfBirth": "2022-09-07",
+      "sex": "Male",
+      "status": "teacher",
+      "id": 26
+    }
+  ],
+  "subjects": [
+    {
+      "subject": "math",
+      "lessons": 12,
+      "description": "description",
+      "id": 1
+    },
+    {
+      "subject": "history",
+      "lessons": 9,
+      "description": "description 2",
+      "id": 2
+    },
+    {
+      "subject": "geography",
+      "lessons": 9,
+      "description": "description 3",
+      "id": 3
+    },
+    {
+      "subject": "physics",
+      "lessons": 13,
+      "description": "physics",
+      "id": 4
+    }
+  ],
+  "gradebooks": [
+    {
+      "student": "laura lastname",
+      "studentIdNumber": 12345678911,
+      "teacher": "gurama lastname",
+      "subject": "history",
+      "lesson": 12,
+      "mark": 12,
+      "date": "09/06/2022",
+      "id": 1
+    },
+    {
+      "student": "laura lastname",
+      "studentIdNumber": 12345678911,
+      "teacher": "gurama lastname",
+      "subject": "history",
+      "lesson": 13,
+      "mark": 13,
+      "date": "09/06/2022",
+      "id": 2
+    },
+    {
+      "student": "tyson co",
+      "studentIdNumber": 12345678918,
+      "teacher": "gurama lastname",
+      "subject": "geography",
+      "lesson": 13,
+      "mark": 13,
+      "date": "09/06/2022",
+      "id": 3
+    },
+    {
+      "student": "tyson co",
+      "studentIdNumber": 12345678918,
+      "teacher": "gurama lastname",
+      "subject": "history",
+      "lesson": 9,
+      "mark": 9,
+      "date": "09/06/2022",
+      "id": 4
+    },
+    {
+      "student": "nick right",
+      "studentIdNumber": 12345678954,
+      "teacher": "gurama lastname",
+      "subject": "math",
+      "lesson": 1,
+      "mark": 1,
+      "date": "09/06/2022",
+      "id": 5
+    },
+    {
+      "student": "mick mouse",
+      "studentIdNumber": 12345678984,
+      "teacher": "gurama lastname",
+      "subject": "history",
+      "lesson": 13,
+      "mark": 13,
+      "date": "09/06/2022",
+      "id": 6
+    },
+    {
+      "student": "laura lastname",
+      "studentIdNumber": 12345678911,
+      "teacher": "gurama lastname",
+      "subject": "geography",
+      "lesson": 2,
+      "mark": 2,
+      "date": "09/06/2022",
+      "id": 7
     }
   ]
 }

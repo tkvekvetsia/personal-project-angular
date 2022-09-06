@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'gradebooks',
     loadChildren: () => import('./features/gradebooks/gradebooks.module').then(m => m.GradebooksModule),
-    // canLoad: [AuthGuard]
+    canLoad: [AuthGuard]
   },
   {
     path: "**",
