@@ -4,7 +4,6 @@
 
 .container{
     table{
-        width: 600px;
         tr{
             td{
                 button{
@@ -18,3 +17,19 @@
         }
     }
 }
+
+@media screen and (min-width: $desktop-min) and (max-width: $desktop-max){
+    table{
+        width: 600px;
+    }
+
+}
+
+@media screen and (min-width: $tablet-min) and (max-width: $tablet-max){
+    table{
+        width: 600px;
+    }
+
+}
+
+

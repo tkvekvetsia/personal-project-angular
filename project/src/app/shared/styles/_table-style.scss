@@ -1,3 +1,5 @@
+
+@import './media-quaries';
 .container {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,6 @@
     color: $required-color;
   }
   table {
-    width: 900px;
     box-shadow: 1px 1px 5px 1px $header-border-color;
     box-shadow: 3px $header-border-color;
 
@@ -44,5 +45,27 @@
         }
       }
     }
+  }
+}
+@media screen and (min-width: $desktop-min) and (max-width: $desktop-max) {
+  table{
+    width: 900px;
+  }
+
+}
+@media screen and (min-width: $tablet-min) and (max-width: $tablet-max) {
+  table{
+    width: 700px;
+  }
+
+ 
+
+}
+@media screen and (min-width: $mobile-min) and (max-width: $mobile-max) {
+  table{
+    width: 350px;
+  }
+  .phoneDisplay{
+    display: none;
   }
 }

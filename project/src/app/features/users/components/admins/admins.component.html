@@ -6,20 +6,20 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Sex</th>
+      <th class="phoneDisplay">Sex</th>
       <th>phone</th>
-      <th>Email</th>
-      <th>Date oF Birth</th>
+      <th class="phoneDisplay">Email</th>
+      <th class="phoneDisplay">Date oF Birth</th>
     </tr>
 
     <ng-container *ngFor="let admin of admins$ | async">
       <tr>
         <td>{{ admin.idNumber }}</td>
         <td>{{ admin.fullName.firstName }} {{ admin.fullName.lastName }}</td>
-        <td>{{ admin.sex }}</td>
+        <td class="phoneDisplay">{{ admin.sex }}</td>
         <td>{{ admin.phoneNumber }}</td>
-        <td>{{ admin.email }}</td>
-        <td>{{ admin.dateOfBirth }}</td>
+        <td class="phoneDisplay">{{ admin.email }}</td>
+        <td class="phoneDisplay">{{ admin.dateOfBirth }}</td>
       </tr>
     </ng-container>
   </table>

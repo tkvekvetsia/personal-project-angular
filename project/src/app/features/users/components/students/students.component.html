@@ -12,10 +12,10 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Sex</th>
+        <th class="phoneDisplay">Sex</th>
         <th>phone</th>
-        <th>Email</th>
-        <th>Date oF Birth</th>
+        <th class="phoneDisplay">Email</th>
+        <th class="phoneDisplay">Date oF Birth</th>
       </tr>
 
       <ng-container *ngFor="let student of students$ | async">
@@ -24,10 +24,10 @@
           <td>
             {{ student.fullName.firstName }} {{ student.fullName.lastName }}
           </td>
-          <td>{{ student.sex }}</td>
+          <td class="phoneDisplay">{{ student.sex }}</td>
           <td>{{ student.phoneNumber }}</td>
-          <td>{{ student.email }}</td>
-          <td>{{ student.dateOfBirth }}</td>
+          <td class="phoneDisplay">{{ student.email }}</td>
+          <td class="phoneDisplay">{{ student.dateOfBirth }}</td>
           <ng-container *ngIf="isAdmin$ | async">
             <td class="button">
               <button (click)="onDelete(student.id!)">

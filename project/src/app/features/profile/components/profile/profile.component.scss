@@ -17,7 +17,6 @@ h5 {
       position: absolute;
       top: 0;
       right: 0;
-      font-size: 23px;
       .gold {
         color: $gold-medal-color;
       }
@@ -37,8 +36,6 @@ h5 {
         }
       }
     }
-    padding: 20px 100px;
-    width: 900px;
     border: 1px solid $header-border-color;
     background-color: $profile-card-color;
     color: $profile-text-color;
@@ -52,7 +49,6 @@ h5 {
       text-align: center;
       margin-top: 10px;
       font-weight: bold;
-      font-size: 30px;
       font-style: italic;
     }
     .border {
@@ -72,9 +68,6 @@ h5 {
       width: 100%;
 
       p {
-        height: 30px;
-        // font-weight: 400;
-        font-size: 18px;
         margin: 0;
         span {
           font-weight: bold;
@@ -90,4 +83,35 @@ h5 {
       }
     }
   }
+}
+@media screen and (min-width: $tablet-min) and (max-width: $desktop-max){
+ .badge{
+  font-size: 23px;
+ }
+  .card{
+    padding: 20px 100px;
+   
+    width: 70%;
+  }
+  h3{
+    font-size: 30px;
+  }
+  p{
+    height: 30px;
+
+    font-size: 18px;
+
+  }
+}
+@media screen and (min-width: $mobile-min) and (max-width: $mobile-max){
+ .card{
+  padding: 20px 50px;
+ }
+  h3{
+    font-size: 15px
+  }
+  .badge{
+    font-size: 13px;
+   }
+
 }
