@@ -1,0 +1,33 @@
+@import "../../../../shared/styles/media-quaries";
+@import "../../../../shared/styles/palette";
+@import "../../../../shared/styles/table-style";
+.container {
+  h2 {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-style: italic;
+    &:nth-child(2) {
+      margin-bottom: 20px;
+    }
+  }
+
+  table {
+    position: relative;
+    button {
+      &.close {
+        position: absolute;
+        font-size: 20px;
+        font-weight: bold;
+        top: 5px;
+        right: 1%;
+        color: $welcome-color;
+
+        &:hover {
+          cursor: pointer;
+          color: $required-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

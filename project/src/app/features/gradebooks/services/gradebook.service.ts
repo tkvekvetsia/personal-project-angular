@@ -14,4 +14,8 @@ export class GradebookService {
     return this.http.post<IRecord>(this.baseUrl, body);
   }
 
+  public getAllRecord():Observable<IRecord[]>{
+    return this.http.get<IRecord[]>(`${this.baseUrl}`);
+  }
+
 }

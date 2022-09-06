@@ -1,6 +1,8 @@
 <div class="container">
   <div class="card">
-    <h3><span> Register</span> Now</h3>
+    <ng-container *ngIf="!(updateState$ | async) && !( addUser$ | async)">
+      <h3><span> Register</span> Now</h3>
+    </ng-container>
     <form [formGroup]="registerForm">
       <div class="flex-between" formGroupName="fullName">
         <label>

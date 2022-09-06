@@ -1,19 +1,31 @@
 <div class="wrapper">
-  <ng-container *ngIf="addState$ | async; else gradebookList">
-    <app-add-gradebook
-      [student$]="student$"
-      [arrOfSubject$]="arrOfSubject$"
-      [loggedUser$]="loggedUser$"
-      (record)="registerRecord($event)"
-      (cancel)="onCancel()"
-    ></app-add-gradebook>
+  <ng-container
+    *ngIf="!(showPersonalGradebook$ | async); else peronsalGradebook"
+  >
+    <ng-container *ngIf="addState$ | async; else gradebookList">
+      <app-add-gradebook
+        [student$]="student$"
+        [arrOfSubject$]="arrOfSubject$"
+        [loggedUser$]="loggedUser$"
+        (record)="registerRecord($event)"
+        (cancel)="onCancel()"
+      ></app-add-gradebook>
+    </ng-container>
+    <ng-template #gradebookList>
+      <app-gradebook-list
+        [arrOfStudent$]="arrOfStudents$"
+        [errorMessage$]="errorMessage$"
+        (student)="onAdd($event)"
+        (displayPersonalGradebook)="onDisplayPersonalGradebook($event)"
+        (idNumber)="onClickIdNumber($event)"
+      ></app-gradebook-list>
+    </ng-template>
   </ng-container>
-  <ng-template #gradebookList>
-    <app-gradebook-list
-      [arrOfStudent$]="arrOfStudents$"
-      [arrOfGradebooks$]="arrOfGradebooks$"
-      [errorMessage$]="errorMessage$"
-      (student)="onAdd($event)"
-    ></app-gradebook-list>
+  <ng-template #peronsalGradebook>
+    <app-personal-gradebook
+      [personalGradebook$]="personalGradebook$"
+      [loggedUser$]="loggedUser$"
+      (displayPersonalGradebook)="onDisplayPersonalGradebook($event)"
+    ></app-personal-gradebook>
   </ng-template>
 </div>

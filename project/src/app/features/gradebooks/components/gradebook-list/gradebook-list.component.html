@@ -11,11 +11,19 @@
 
     <ng-container *ngFor="let student of arrOfStudent$ | async">
       <tr>
-        <td>{{ student.idNumber }}</td>
         <td>
-          {{ student.fullName.firstName}} {{ student.fullName.lastName}} 
+          <button mat-button class="personal" (click)="onDisplayPersonalGradebook(true, student.idNumber)">{{ student.idNumber }}</button>
         </td>
-        <td> <button mat-stroked-button color="warn" (click)="onAdd(student)">Add</button></td>
+        <td>
+          <button mat-button class="personal" (click)='onDisplayPersonalGradebook(true, student.idNumber)'>
+            {{ student.fullName.firstName }} {{ student.fullName.lastName }}
+          </button>
+        </td>
+        <td>
+          <button mat-stroked-button color="warn" (click)="onAdd(student)">
+            Add
+          </button>
+        </td>
       </tr>
     </ng-container>
   </table>

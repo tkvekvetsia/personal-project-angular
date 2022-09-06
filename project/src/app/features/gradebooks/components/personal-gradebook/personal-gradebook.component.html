@@ -1,1 +1,45 @@
-<p>personal-gradebook works!</p>
+<div class="container">
+  <ng-container *ngIf="personalGradebook$ | async as personalGradebook">
+    <ng-container *ngIf="personalGradebook.length; else noGradebook">
+        <h2>{{personalGradebook[0].student}}</h2>
+        <h2>{{personalGradebook[0].studentIdNumber}}</h2>
+    </ng-container>
+
+    <ng-template #noGradebook>
+        <h3>No Records To Show</h3>
+    </ng-template>
+  
+    <table>
+      <tr class="close-tr">
+        <th>Teacher</th>
+        <th>Subject</th>
+        <th>Lesson</th>
+        <th>Mark</th>
+        <th>Date</th>
+      </tr>
+
+      <ng-container *ngFor="let record of personalGradebook">
+        <tr>
+          <td>
+            {{record.teacher}}
+          </td>
+          <td>
+           {{record.subject}}
+          </td>
+          <td>
+            {{record.lesson}}
+          </td>
+          <td>
+            {{record.mark}}
+          </td>
+          <td>
+            {{record.date}}
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="(loggedUser$ | async)!.status !== 'Student'">
+        <button class="close" (click)="onClose()">X</button>
+      </ng-container>
+    </table>
+  </ng-container>
+</div>

@@ -6,7 +6,6 @@ import { ISubject } from 'src/app/features/subjects/interfaces/subject.interface
 import { SubjectService } from 'src/app/features/subjects/services/subject.service';
 import {
   ILoggedUSer,
-  ILoginResponse,
 } from 'src/app/shared/itnerfaces/login.interface';
 import { IRecord } from '../../interfaces/gradebook.interface';
 import { GradebookService } from '../../services/gradebook.service';
@@ -21,7 +20,7 @@ export class GradebookWrapperComponent implements OnInit {
   arrOfStudents$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
     [] as ILoggedUSer[]
   );
-  arrOfGradebooks$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
+  gradebooks$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
     [] as IRecord[]
   );
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -35,6 +34,8 @@ export class GradebookWrapperComponent implements OnInit {
   loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
     {} as ILoggedUSer
   );
+  showPersonalGradebook$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  personalGradebook$: BehaviorSubject<IRecord[]> = new BehaviorSubject([] as IRecord[])
 
   constructor(
     private backendService: BackendService,
@@ -42,8 +43,27 @@ export class GradebookWrapperComponent implements OnInit {
     private authService: AuthService,
     private gradebookService: GradebookService
   ) {}
-
+  private getStudentRecords(idNumber: number): IRecord[] {
+    const gradebooks = this.gradebooks$.getValue();
+    const arr = gradebooks.filter(v => v.studentIdNumber === idNumber);
+    return arr;
+  }  
+  
   ngOnInit(): void {
+    
+
+    //gradebookService 
+    this.gradebookService.getAllRecord()
+    .pipe(
+      tap(v => {
+        this.gradebooks$.next(v);
+        if(this.loggedUser$.getValue().status === 'Student'){
+          this.onClickIdNumber(this.loggedUser$.getValue().idNumber);
+          this.showPersonalGradebook$.next(true);
+        }
+      })
+    )
+    .subscribe()
     //backendService variables
     this.backendService
       .getSpecificUsers('Student')
@@ -70,6 +90,9 @@ export class GradebookWrapperComponent implements OnInit {
 
     //authService: variables
     this.loggedUser$ = this.authService.getLoggedUser();
+
+    //for student
+  
   }
 
   public onAdd(value: ILoggedUSer): void {
@@ -85,6 +108,7 @@ export class GradebookWrapperComponent implements OnInit {
           this.addState$.next(false);
           this.student$.next({} as ILoggedUSer);
           alert('Record Added Successfully');
+          this.gradebooks$.next([...this.gradebooks$.getValue(), v])
         }),
         catchError((e) => {
           alert(
@@ -97,5 +121,15 @@ export class GradebookWrapperComponent implements OnInit {
   }
   public onCancel(): void {
     this.addState$.next(false);
+  }
+
+  public onDisplayPersonalGradebook(value: boolean){
+      this.showPersonalGradebook$.next(value);
+  }
+
+  public onClickIdNumber(idNumber: number){
+    const arr: IRecord[] = this.getStudentRecords(idNumber);
+    this.personalGradebook$.next(arr);
+    // console.log(this.personalGradebook$.getValue());   
   }
 }

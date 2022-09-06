@@ -13,11 +13,11 @@ import { IRecord } from '../../interfaces/gradebook.interface';
 })
 export class GradebookListComponent implements OnInit {
   @Input() arrOfStudent$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[])
-  @Input()  arrOfGradebooks$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
-    [] as IRecord[]
-  );
+ 
   @Input() errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   @Output() student = new EventEmitter();
+  @Output() displayPersonalGradebook = new EventEmitter();
+  @Output() idNumber = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -25,5 +25,9 @@ export class GradebookListComponent implements OnInit {
 
   public onAdd(student: ILoggedUSer):void{
     this.student.emit(student);
+  }
+  public onDisplayPersonalGradebook(value: boolean, idNumber: number):void{
+    this.displayPersonalGradebook.emit(value);
+    this.idNumber.emit(idNumber);
   }
 }
