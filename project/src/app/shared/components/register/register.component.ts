@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -6,7 +6,7 @@ import {
   catchError,
   debounceTime,
   of,
-  ReplaySubject,
+  Subscription,
   tap,
 } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -26,7 +26,7 @@ import { matchValidator } from './validators/password.validators';
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   passwordMatchError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   emailExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   idExistsError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit {
   addUser$: BehaviorSubject<string> = new BehaviorSubject('');  
   students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
   teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
+  subscription: Subscription = new Subscription()
 
   constructor(
     private backendService: BackendService,
@@ -77,7 +78,6 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe();
-
     //end of checking passwords
 
     //check email
@@ -152,6 +152,28 @@ export class RegisterComponent implements OnInit {
     this.addUser$ = this.backendService.getAddUser();
     this.students$ = this.backendService.getStudents();
     this.teachers$ = this.backendService.getTeachers();
+
+
+    //update
+    this.subscription = this.updateState$.pipe(
+      tap(v => {
+        if(v){
+          this.registerForm.patchValue({
+            fullName: {
+              firstName: this.loggedUser$.getValue().fullName.firstName,
+              lastName: this.loggedUser$.getValue().fullName.lastName
+            },
+            idNumber: this.loggedUser$.getValue().idNumber,
+            email: this.loggedUser$.getValue().email,
+            phoneNumber: this.loggedUser$.getValue().phoneNumber,
+            dateOfBirth: this.loggedUser$.getValue().dateOfBirth,
+            sex: this.loggedUser$.getValue().sex
+          })
+        }
+      })
+    ).subscribe()
+        
+
   }
 
   //register form
@@ -381,5 +403,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('status') as FormControl<string>;
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   
 }

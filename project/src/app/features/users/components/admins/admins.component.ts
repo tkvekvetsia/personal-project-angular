@@ -23,7 +23,7 @@ export class AdminsComponent implements OnInit {
       .pipe(
         tap((v) => {
           const arr = v.filter((value) => value.status === 'Admin');
-          console.log(v);
+          // console.log(v);
           this.admins$.next(arr);
           this.errorMessage$.next(false);
           // console.log(this.admins$.getValue());
