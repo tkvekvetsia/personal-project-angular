@@ -12,24 +12,28 @@ import { BackendService } from '../../services/backend.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopBarComponent implements OnInit {
-  constructor(private router: Router, private authService:AuthService, private backendService: BackendService) {}
-  isLoggedIn$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
-  isAdmin$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private backendService: BackendService
+  ) {}
+  isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.getIsLoggedIn();
     this.isAdmin$ = this.authService.getIsAdmin();
   }
   public onLogOut(): void {
-   this.authService.logOut();
+    this.authService.logOut();
   }
-  public onClickTeachers():void{
+  public onClickTeachers(): void {
     this.router.navigateByUrl('/users/teachers');
   }
-  public onClickAdmins():void{
-    this.router.navigateByUrl('/users/admins')
+  public onClickAdmins(): void {
+    this.router.navigateByUrl('/users/admins');
   }
 
-  public onClickStudents():void{
+  public onClickStudents(): void {
     this.router.navigateByUrl('/users/students');
   }
 }

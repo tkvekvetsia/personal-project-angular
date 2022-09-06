@@ -4,20 +4,37 @@
     <form [formGroup]="loginForm">
       <label>
         Email:
-        <input type="text" class="input-style" formControlName="email" placeholder="someone@example.com"/>
+        <input
+          type="text"
+          class="input-style"
+          formControlName="email"
+          placeholder="someone@example.com"
+        />
       </label>
       <label>
         Password:
-        <input type="password" class="input-style" formControlName="password" placeholder="Enter Password"/>
+        <input
+          type="password"
+          class="input-style"
+          formControlName="password"
+          placeholder="Enter Password"
+        />
         <ng-container *ngIf="authErrorMessage$ | async">
           <span class="required-color error">
-            {{authErrorMessage$ | async}}
+            {{ authErrorMessage$ | async }}
           </span>
         </ng-container>
       </label>
-      
+
       <div class="buttons">
-        <button mat-stroked-button color="primary" [disabled]="!loginForm.valid" (click)="onLogin()">Log In</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="!loginForm.valid"
+          (click)="onLogin()"
+        >
+          Log In
+        </button>
       </div>
     </form>
   </div>

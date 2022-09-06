@@ -23,15 +23,11 @@ export class BackendService {
     [] as ILoggedUSer[]
   );
 
-  constructor(
-    private http: HttpClient,
-   
-  ) {}
+  constructor(private http: HttpClient) {}
 
   //register user
   public registerUser(body: IRegisteredUser): Observable<ILoginResponse> {
-    return this.http
-      .post<ILoginResponse>(`${this.baseUrl}/register`, body);
+    return this.http.post<ILoginResponse>(`${this.baseUrl}/register`, body);
   }
 
   //get all users
@@ -39,13 +35,13 @@ export class BackendService {
     return this.http.get<ILoggedUSer[]>(`${this.baseUrl}/users`);
   }
   //get users with same status
-  public getSpecificUsers(status: string):Observable<ILoggedUSer[]>{
+  public getSpecificUsers(status: string): Observable<ILoggedUSer[]> {
     return this.getAllUsers().pipe(
-      map(v => {
+      map((v) => {
         const arr = v.filter((value) => value.status === status);
         return arr;
       })
-    )
+    );
   }
 
   //update user

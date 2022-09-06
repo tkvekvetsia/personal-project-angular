@@ -45,7 +45,7 @@
             font-size: 1rem;
             line-height: 1.5;
             color: $input-text-color;
-            background-color:$input-background-color;
+            background-color: $input-background-color;
             background-clip: padding-box;
             border: 1px solid $input-border-color;
             border-radius: 0.25rem;
@@ -70,7 +70,7 @@
           color: $required-color;
         }
 
-        .error{
+        .error {
           font-size: 15px;
           line-height: 10px;
         }

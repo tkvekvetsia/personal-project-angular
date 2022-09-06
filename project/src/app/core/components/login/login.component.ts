@@ -39,18 +39,17 @@ export class LoginComponent implements OnInit {
           this.authErrorMessage$.next('');
           // console.log(v);
           this.authService.changeLoggedState(true);
-          this.authService.changeLoggedUser(v.user)
+          this.authService.changeLoggedUser(v.user);
           this.router.navigateByUrl('/profile');
         }),
         catchError((e) => {
           this.authErrorMessage$.next(e.error);
           setTimeout(() => {
-            this.authErrorMessage$.next('')
+            this.authErrorMessage$.next('');
           }, 3000);
           return of(null);
         })
       )
       .subscribe();
-
   }
 }
