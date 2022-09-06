@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject, catchError, filter, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
@@ -50,7 +55,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
     //backendService variables
     this.addUser$ = this.backendService.getAddUser();
-    this.students$ = this.backendService.getStudents()
+    this.students$ = this.backendService.getStudents();
   }
 
   ngOnDestroy(): void {
@@ -58,24 +63,22 @@ export class StudentsComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(id: number): void {
-    this.backendService.deleteUser(id).pipe(
-      tap(v=>{
-        this.getStudents();
-      }),
-      catchError(
-        (e) => {
+    this.backendService
+      .deleteUser(id)
+      .pipe(
+        tap((v) => {
+          this.getStudents();
+        }),
+        catchError((e) => {
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
           );
-          return of(null)
-        }
-      )      
-    ).subscribe();
-
-   
-
+          return of(null);
+        })
+      )
+      .subscribe();
   }
-  public onAddUser():void{
-    this.backendService.changeAddUser("Student");
+  public onAddUser(): void {
+    this.backendService.changeAddUser('Student');
   }
 }

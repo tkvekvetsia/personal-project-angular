@@ -53,7 +53,6 @@ export class GradebookWrapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     //gpaService variables
     this.gpa$ = this.gpaService.getGpa();
     //gradebookService
@@ -101,7 +100,6 @@ export class GradebookWrapperComponent implements OnInit {
   public onAdd(value: ILoggedUSer): void {
     this.addState$.next(true);
     this.student$.next(value);
-    
   }
 
   public registerRecord(value: IRecord): void {

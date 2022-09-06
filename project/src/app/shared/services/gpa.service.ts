@@ -4,17 +4,17 @@ import { IRecord } from 'src/app/features/gradebooks/interfaces/gradebook.interf
 import { IStringNumberObj } from '../itnerfaces/gpa.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GpaService {
   private gpa$: BehaviorSubject<number> = new BehaviorSubject(0);
-  
-  constructor() { }
 
-  public gpaCalculator(subjects:Array<string>, records:IRecord[]): number {
-    let obj:IStringNumberObj = {};
+  constructor() {}
+
+  public gpaCalculator(subjects: Array<string>, records: IRecord[]): number {
+    let obj: IStringNumberObj = {};
     let gpa = 0;
-  
+
     for (let i = 0; i < subjects.length; i++) {
       let result = 0;
       let avr;
@@ -34,12 +34,11 @@ export class GpaService {
     for (let mark in obj) {
       gpa += obj[mark];
     }
-    gpa = gpa / arr.length/2.5;
+    gpa = gpa / arr.length / 2.5;
     return gpa;
   }
 
-
-  public getGpa():BehaviorSubject<number>{
-    return this.gpa$
+  public getGpa(): BehaviorSubject<number> {
+    return this.gpa$;
   }
 }

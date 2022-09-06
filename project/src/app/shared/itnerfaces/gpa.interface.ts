@@ -1,3 +1,3 @@
-export interface IStringNumberObj{
-    [index: string]: number
+export interface IStringNumberObj {
+  [index: string]: number;
 }

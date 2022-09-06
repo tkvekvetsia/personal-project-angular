@@ -1,4 +1,4 @@
-import { FormControl } from "@angular/forms";
+import { FormControl } from '@angular/forms';
 
 export interface IRecord {
   student: string;
@@ -8,13 +8,11 @@ export interface IRecord {
   lesson: number;
   mark: number;
   date: string;
-  id?: number  
+  id?: number;
 }
 
-
-
-export interface IRecordForm{
-    subject: FormControl<string>;
-    lesson: FormControl<number | null>;
-    mark: FormControl<number | null>;
+export interface IRecordForm {
+  subject: FormControl<string>;
+  lesson: FormControl<number | null>;
+  mark: FormControl<number | null>;
 }

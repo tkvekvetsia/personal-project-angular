@@ -25,5 +25,5 @@ export interface ILoggedUSer {
 
 export interface ILoginResponse {
   accessToken: string;
-  user: ILoggedUSer
+  user: ILoggedUSer;
 }

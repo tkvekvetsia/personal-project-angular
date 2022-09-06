@@ -55,7 +55,7 @@ export class TeachersComponent implements OnInit, OnDestroy {
 
     //backendService variables
     this.addUser$ = this.backendService.getAddUser();
-    this.teachers$ =this.backendService.getTeachers();
+    this.teachers$ = this.backendService.getTeachers();
   }
 
   public onDelete(id: number): void {

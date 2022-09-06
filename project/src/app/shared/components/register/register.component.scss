@@ -36,7 +36,7 @@
         flex-direction: column;
 
         .flex-between {
-          width:340px;
+          width: 340px;
           display: flex;
           justify-content: space-between;
 
@@ -47,7 +47,7 @@
 
         label {
           margin-bottom: 15px;
-          &:hover{
+          &:hover {
             cursor: pointer;
           }
 
@@ -71,14 +71,13 @@
               outline: none;
             }
             &.ng-touched.ng-invalid {
-              border-color:$required-color;
+              border-color: $required-color;
               box-shadow: 0 0 5px $required-color;
             }
-        
           }
-          select{
-            &:hover{
-                cursor: pointer;
+          select {
+            &:hover {
+              cursor: pointer;
             }
           }
 
@@ -86,14 +85,13 @@
             color: $required-color;
           }
 
-          .error{
+          .error {
             font-size: 10px;
             line-height: 10px;
           }
-         
         }
 
-        .margin-right{
+        .margin-right {
           margin-right: 15px;
         }
       }
@@ -101,10 +99,8 @@
   }
 }
 
-
-input{
-  &.ng-invalid{
-  border: 1px solid red;
-
+input {
+  &.ng-invalid {
+    border: 1px solid red;
   }
 }

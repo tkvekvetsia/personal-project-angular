@@ -4,7 +4,7 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  Input
+  Input,
 } from '@angular/core';
 import {
   BehaviorSubject,
@@ -31,13 +31,13 @@ export class SubjectListComponent implements OnInit {
   );
   @Output() addState = new EventEmitter<boolean>();
   @Output() deletedId = new EventEmitter<number>();
-  @Input() user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
+  @Input() user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
+    {} as ILoggedUSer
+  );
 
   constructor() {}
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 
   public onDelete(id: number): void {
     this.deletedId.emit(id);

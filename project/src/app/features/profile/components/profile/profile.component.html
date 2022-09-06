@@ -34,10 +34,14 @@
       <ng-container *ngIf="(loggedUser$ | async)?.status === 'Student'">
         <!--needs optimization,  doesn't show up until gradebook is laoded -->
         <ng-container *ngIf="gpa$ | async as gpa">
-          <div class="badge">
+          <div class="badge" title="You Need Study More">
             <i
               class="fas fa-medal fa-border fa-3x"
-              [ngClass]="{ noob: gpa < 1 }"
+              [ngClass]="{
+                noob: gpa < 1,
+                gold: gpa > 3,
+                silver: gpa > 1 && gpa < 3
+              }"
             ></i>
           </div>
         </ng-container>

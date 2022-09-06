@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -37,12 +42,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     {} as ILoggedUSer
   );
   status$: BehaviorSubject<string> = new BehaviorSubject('');
-  addUser$: BehaviorSubject<string> = new BehaviorSubject('');  
-  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
-  teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[]);
+  addUser$: BehaviorSubject<string> = new BehaviorSubject('');
+  students$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
+  );
+  teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+    [] as ILoggedUSer[]
+  );
   subscription: Subscription = new Subscription();
-   //register form
-   registerForm: FormGroup<IRegisterForm> = new FormGroup({
+  //register form
+  registerForm: FormGroup<IRegisterForm> = new FormGroup({
     fullName: new FormGroup<IFullNameFormGroup>({
       firstName: new FormControl<string>('', {
         nonNullable: true,
@@ -194,7 +203,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     this.idExistsError$.next(false);
                   } else if (
                     index >= 0 &&
-                    this.idNumber.value !== this.loggedUser$.getValue()?.idNumber
+                    this.idNumber.value !==
+                      this.loggedUser$.getValue()?.idNumber
                   ) {
                     this.idExistsError$.next(true);
                   }
@@ -218,30 +228,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.students$ = this.backendService.getStudents();
     this.teachers$ = this.backendService.getTeachers();
 
-
     //update
-    this.subscription = this.updateState$.pipe(
-      tap(v => {
-        if(v){
-          this.registerForm.patchValue({
-            fullName: {
-              firstName: this.loggedUser$.getValue().fullName.firstName,
-              lastName: this.loggedUser$.getValue().fullName.lastName
-            },
-            idNumber: this.loggedUser$.getValue().idNumber,
-            email: this.loggedUser$.getValue().email,
-            phoneNumber: this.loggedUser$.getValue().phoneNumber,
-            dateOfBirth: this.loggedUser$.getValue().dateOfBirth,
-            sex: this.loggedUser$.getValue().sex
-          })
-        }
-      })
-    ).subscribe()
-        
-
+    this.subscription = this.updateState$
+      .pipe(
+        tap((v) => {
+          if (v) {
+            this.registerForm.patchValue({
+              fullName: {
+                firstName: this.loggedUser$.getValue().fullName.firstName,
+                lastName: this.loggedUser$.getValue().fullName.lastName,
+              },
+              idNumber: this.loggedUser$.getValue().idNumber,
+              email: this.loggedUser$.getValue().email,
+              phoneNumber: this.loggedUser$.getValue().phoneNumber,
+              dateOfBirth: this.loggedUser$.getValue().dateOfBirth,
+              sex: this.loggedUser$.getValue().sex,
+            });
+          }
+        })
+      )
+      .subscribe();
   }
-
- 
 
   //register user
   public onRegister(): void {
@@ -264,7 +271,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .pipe(
         tap((v) => {
           // console.log(v);
-          
+
           this.registerForm.reset();
           this.router.navigateByUrl('/login');
         }),
@@ -304,7 +311,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .pipe(
         tap((v) => {
           this.authService.changeLoggedUser(v);
-          this.tokenStorageService.saveUser(v);          
+          this.tokenStorageService.saveUser(v);
           this.registerForm.reset();
           this.backendService.changeUpdateState(false);
         }),
@@ -320,7 +327,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   //add User
-  public onAddUser():void{
+  public onAddUser(): void {
     const user: IRegisteredUser = {
       fullName: {
         firstName: this.firstnName.value,
@@ -334,27 +341,34 @@ export class RegisterComponent implements OnInit, OnDestroy {
       sex: this.sex.value,
       status: this.addUser$.getValue(),
     };
-    this.backendService.registerUser(user).pipe(
-      tap((v) => {
-        // console.log(v), 
-        this.registerForm.reset();
-        this.backendService.changeAddUser('');
-        if(v.user.status === 'Student'){
-          this.backendService.changeStudents([...this.students$.getValue(), v.user])
-        }else if(v.user.status === 'Teacher'){
-          this.backendService.changeTeachers([...this.teachers$.getValue(), v.user])
-
-        }
-      }),
-      catchError((e) => {
-        // console.log(e);
-        alert(
-          `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
-        );
-        return of(null);
-      })
-    )
-    .subscribe();
+    this.backendService
+      .registerUser(user)
+      .pipe(
+        tap((v) => {
+          // console.log(v),
+          this.registerForm.reset();
+          this.backendService.changeAddUser('');
+          if (v.user.status === 'Student') {
+            this.backendService.changeStudents([
+              ...this.students$.getValue(),
+              v.user,
+            ]);
+          } else if (v.user.status === 'Teacher') {
+            this.backendService.changeTeachers([
+              ...this.teachers$.getValue(),
+              v.user,
+            ]);
+          }
+        }),
+        catchError((e) => {
+          // console.log(e);
+          alert(
+            `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
+          );
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   //registerform getters
@@ -410,5 +424,4 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  
 }

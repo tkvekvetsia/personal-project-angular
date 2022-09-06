@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-    <ng-container *ngIf="!(updateState$ | async) && !( addUser$ | async)">
+    <ng-container *ngIf="!(updateState$ | async) && !(addUser$ | async)">
       <h3><span> Register</span> Now</h3>
     </ng-container>
     <form [formGroup]="registerForm">
@@ -163,7 +163,7 @@
             <ng-container *ngIf="(addUser$ | async) !== 'Teacher'">
               <option value="Student">Student</option>
             </ng-container>
-            <ng-container *ngIf="(addUser$ |async) === ''">
+            <ng-container *ngIf="(addUser$ | async) === ''">
               <option value="Admin">Admin</option>
             </ng-container>
           </select>
@@ -176,7 +176,9 @@
         </ng-container>
       </label>
       <div class="buttons">
-        <ng-container *ngIf="!(updateState$ | async) && !( addUser$ | async); else update">
+        <ng-container
+          *ngIf="!(updateState$ | async) && !(addUser$ | async); else update"
+        >
           <button
             mat-stroked-button
             color="primary"

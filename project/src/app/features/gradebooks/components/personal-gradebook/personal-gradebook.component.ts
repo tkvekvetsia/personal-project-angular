@@ -22,8 +22,10 @@ export class PersonalGradebookComponent implements OnInit {
   @Input() personalGradebook$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
     [] as IRecord[]
   );
-  @Input() loggedUser$: BehaviorSubject<ILoggedUSer>= new BehaviorSubject({} as ILoggedUSer);
-  @Input() gpa$: BehaviorSubject<number> =  new BehaviorSubject(0);
+  @Input() loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
+    {} as ILoggedUSer
+  );
+  @Input() gpa$: BehaviorSubject<number> = new BehaviorSubject(0);
   constructor() {}
 
   ngOnInit(): void {}

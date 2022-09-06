@@ -1,15 +1,12 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-export interface IFullNameFormGroup{
- 
-    firstName: FormControl<string>;
-    lastName: FormControl<string>;
-  
+export interface IFullNameFormGroup {
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
 }
 
-
 export interface IRegisterForm {
-  fullName: FormGroup<IFullNameFormGroup>
+  fullName: FormGroup<IFullNameFormGroup>;
   idNumber: FormControl<number | null>;
   email: FormControl<string>;
   passwordGroup: FormGroup<{
@@ -20,14 +17,11 @@ export interface IRegisterForm {
   dateOfBirth: FormControl<string>;
   sex: FormControl<string>;
   status: FormControl<string>;
-
 }
 
-export interface IFullName{
- 
+export interface IFullName {
   firstName: string;
   lastName: string;
-
 }
 export interface IRegisteredUser {
   fullName: IFullName;
@@ -38,6 +32,6 @@ export interface IRegisteredUser {
   dateOfBirth: string;
   sex: string;
   status: string;
-  id?:number;
+  id?: number;
   accessToken?: string;
 }
