@@ -49,7 +49,7 @@ export class AddGradebookComponent implements OnInit {
     }),
     mark: new FormControl<number | null>(null, {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern(/\b([0-9]|10)\b/)],
     }),
   });
   constructor() {}
