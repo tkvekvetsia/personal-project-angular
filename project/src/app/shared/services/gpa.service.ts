@@ -17,7 +17,7 @@ export class GpaService {
 
     for (let i = 0; i < subjects.length; i++) {
       let result = 0;
-      let avr;
+      let avr: number = 1;
       let count = 0;
       for (let j = 0; j < records.length; j++) {
         if (subjects[i] === records[j].subject) {
@@ -31,6 +31,7 @@ export class GpaService {
       count = 0;
     }
     let arr = Object.getOwnPropertyNames(obj);
+    console.log(obj)
     for (let mark in obj) {
       gpa += obj[mark];
     }

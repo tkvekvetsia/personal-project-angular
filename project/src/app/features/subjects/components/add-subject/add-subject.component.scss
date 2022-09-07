@@ -1,89 +1,90 @@
 @import "../../../../shared/styles/media-quaries";
 @import "../../../../shared/styles/palette";
+@import '../../../../shared/styles/input-style';
 
-.card {
-    margin-top: 30px;
-    width: 400px;
-    height: 470px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid $header-border-color;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1.5%;
-    background-color: $card-background-color;
+// .card {
+//     margin-top: 30px;
+//     width: 400px;
+//     height: 470px;
+//     display: flex;
+//     flex-direction: column;
+//     border: 1px solid $header-border-color;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 1.5%;
+//     background-color: $card-background-color;
 
-    h3 {
-      font-family: "roboto", sans-serif;
-      font-weight: 400;
-      font-size: 23px;
-      font-style: italic;
-      margin-bottom: 50px;
-      span {
-        color: $welcome-color;
-        font-style: italic;
-        font-weight: bold;
-      }
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      label {
-        margin-bottom: 15px;
+//     h3 {
+//       font-family: "roboto", sans-serif;
+//       font-weight: 400;
+//       font-size: 23px;
+//       font-style: italic;
+//       margin-bottom: 50px;
+//       span {
+//         color: $welcome-color;
+//         font-style: italic;
+//         font-weight: bold;
+//       }
+//     }
+//     form {
+//       display: flex;
+//       flex-direction: column;
+//       label {
+//         margin-bottom: 15px;
 
-        .input-style {
-          width: 280px;
-          margin-top: 3px;
-          margin-bottom: 10px;
-          border-radius: 10px;
-          display: block;
-          padding: 0.375rem 0.75rem;
-          font-size: 1rem;
-          line-height: 1.5;
-          color: $input-text-color;
-          background-color:$input-background-color;
-          background-clip: padding-box;
-          border: 1px solid $input-border-color;
-          border-radius: 0.25rem;
-          transition: 0.2s;
-          &:focus {
-            border: 1.5px solid $input-border-focus-color;
-            box-shadow: 0 0 5px 0 $input-border-focus-color;
-            outline: none;
-          }
+//         .input-style {
+//           width: 280px;
+//           margin-top: 3px;
+//           margin-bottom: 10px;
+//           border-radius: 10px;
+//           display: block;
+//           padding: 0.375rem 0.75rem;
+//           font-size: 1rem;
+//           line-height: 1.5;
+//           color: $input-text-color;
+//           background-color:$input-background-color;
+//           background-clip: padding-box;
+//           border: 1px solid $input-border-color;
+//           border-radius: 0.25rem;
+//           transition: 0.2s;
+//           &:focus {
+//             border: 1.5px solid $input-border-focus-color;
+//             box-shadow: 0 0 5px 0 $input-border-focus-color;
+//             outline: none;
+//           }
 
-          &.ng-touched.ng-invalid {
-            border-color:$required-color;
-            box-shadow: 0 0 5px $required-color;
-          }
-        }
-        .required-color {
-          color: $required-color;
-        }
+//           &.ng-touched.ng-invalid {
+//             border-color:$required-color;
+//             box-shadow: 0 0 5px $required-color;
+//           }
+//         }
+//         .required-color {
+//           color: $required-color;
+//         }
 
-        .blue {
-          color: $input-border-focus-color;
-          cursor: pointer;
-        }
-      }
+//         .blue {
+//           color: $input-border-focus-color;
+//           cursor: pointer;
+//         }
+//       }
 
       
 
-      .required-color {
-        color: $required-color;
-      }
+//       .required-color {
+//         color: $required-color;
+//       }
 
-      .error{
-        font-size: 15px;
-        line-height: 10px;
-      }
-    }
+//       .error{
+//         font-size: 15px;
+//         line-height: 10px;
+//       }
+//     }
 
-    .buttons{
-      button{
-        &:nth-child(1){
-          margin-right: 20px;
-        }
-      }
-    }
-  }
+//     .buttons{
+//       button{
+//         &:nth-child(1){
+//           margin-right: 20px;
+//         }
+//       }
+//     }
+//   }

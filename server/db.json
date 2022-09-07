@@ -179,6 +179,12 @@
       "lessons": 13,
       "description": "physics",
       "id": 4
+    },
+    {
+      "subject": "chemistry",
+      "lessons": 12,
+      "description": "chemistry is good",
+      "id": 5
     }
   ],
   "gradebooks": [
@@ -245,12 +251,12 @@
     {
       "student": "mick mouse",
       "studentIdNumber": 12345678984,
-      "teacher": "gurama lastname",
-      "subject": "history",
-      "lesson": 2,
-      "mark": "10",
-      "date": "09/06/2022",
-      "id": 11
+      "teacher": "admin adminadze",
+      "subject": "geography",
+      "lesson": 12,
+      "mark": 4,
+      "date": "09/07/2022",
+      "id": 16
     }
   ]
 }
