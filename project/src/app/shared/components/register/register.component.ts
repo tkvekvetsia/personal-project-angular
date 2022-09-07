@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   teachers$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
     [] as ILoggedUSer[]
   );
+  users$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject([] as ILoggedUSer[])
   subscription: Subscription = new Subscription();
   //register form
   registerForm: FormGroup<IRegisterForm> = new FormGroup({
@@ -122,6 +123,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.backendService.getAllUsers().pipe(
+      tap(v => {
+        this.users$.next(v)
+      })
+    ).subscribe()
     //check for paswword match
     this.confirmPassword.valueChanges
       .pipe(
@@ -160,25 +166,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
         debounceTime(100),
         tap(() => {
           if (this.email.valid) {
-            this.backendService
-              .getAllUsers()
-              .pipe(
-                tap((v) => {
-                  let index = v.findIndex(
-                    (data) => data.email === this.email.value
-                  );
-                  if (index < 0) {
-                    this.emailExistsError$.next(false);
-                  } else if (
-                    index >= 0 &&
-                    this.email.value !== this.loggedUser$.getValue()?.email
-                  ) {
-                    this.emailExistsError$.next(true);
-                  }
-                })
-              )
-              .subscribe();
+            let index = this.users$.getValue().findIndex(
+              (data) => data.email === this.email.value
+            );
+            if (index < 0) {
+              this.emailExistsError$.next(false);
+            }else if(index >=0 && this.addUser$.getValue()){
+              this.emailExistsError$.next(true);
+            } else if (
+              index >= 0 && 
+              this.email.value !== this.loggedUser$.getValue()?.email
+            ) {
+              this.emailExistsError$.next(true);
+            }
           }
+        
         })
       )
       .subscribe();
@@ -189,29 +191,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
         debounceTime(100),
         tap(() => {
           if (this.idNumber.valid) {
-            this.backendService
-              .getAllUsers()
-              .pipe(
-                tap((v) => {
-                  let index = v.findIndex(
-                    (data) => data.idNumber === this.idNumber.value
-                  );
-                  if (
-                    index < 0 ||
-                    this.idNumber.value == this.loggedUser$.getValue()?.idNumber
-                  ) {
-                    this.idExistsError$.next(false);
-                  } else if (
-                    index >= 0 &&
-                    this.idNumber.value !==
-                      this.loggedUser$.getValue()?.idNumber
-                  ) {
-                    this.idExistsError$.next(true);
-                  }
-                })
-              )
-              .subscribe();
+            let index = this.users$.getValue().findIndex(
+              (data) => data.idNumber === this.idNumber.value
+            );
+            if (
+              index < 0 ||
+              this.idNumber.value === this.loggedUser$.getValue()?.idNumber
+            ) {
+              this.idExistsError$.next(false);
+            }else if(index >=0 && this.addUser$.getValue()){
+              this.idExistsError$.next(true);  
+            } else if (
+              index >= 0 &&
+              this.idNumber.value !==
+                this.loggedUser$.getValue()?.idNumber
+            ) {
+              this.idExistsError$.next(true);
+             
+            }
           }
+         
         })
       )
       .subscribe();
