@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { SubjectService } from '../services/subject.service';
-import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, debounceTime, of, Subscription, tap } from 'rxjs';
 import { ISubject } from '../interfaces/subject.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-subjects',
@@ -11,16 +12,21 @@ import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
   styleUrls: ['./subjects.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubjectsComponent implements OnInit {
+export class SubjectsComponent implements OnInit, OnDestroy {
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   addState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   subjects$: BehaviorSubject<ISubject[]> = new BehaviorSubject(
     [] as ISubject[]
   );
   user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
+  confirmValue$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  remove = false;
+  deleteId = NaN;
+  subscription: Subscription = new Subscription();
   constructor(
     private subjectService: SubjectService,
-    private authService: AuthService
+    private authService: AuthService,
+    private confirmService: ConfirmService
   ) {}
 
   private getAllSubject(): void {
@@ -39,8 +45,29 @@ export class SubjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //confirservice
+    this.confirmValue$ = this.confirmService.getCofnirmValue();
+    this.subscription = this.confirmValue$
+    .pipe(
+      tap(v =>{
+        if(v){
+          this.onDeleteSubject(this.deleteId);
+        }else{
+          this.deleteId = NaN;
+          this.remove = false;
+        }
+      })
+    )
+    .subscribe()
+
     this.getAllSubject();
     this.user$ = this.authService.getLoggedUser();
+  }
+
+  
+  public onRemove(id: number): void{
+    this.deleteId = id;
+    this.remove = true;
   }
 
   public addSubject(subject: ISubject): void {
@@ -50,6 +77,9 @@ export class SubjectsComponent implements OnInit {
         tap((v) => {
           this.addState$.next(false);
           this.subjects$.next([...this.subjects$.getValue(), v]);
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           alert('Added successfully');
         }),
         catchError((e) => {
@@ -57,6 +87,9 @@ export class SubjectsComponent implements OnInit {
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
           );
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           return of(null);
         })
       )
@@ -66,6 +99,7 @@ export class SubjectsComponent implements OnInit {
   onChangeAddState(value: boolean) {
     this.addState$.next(value);
   }
+
 
   public onDeleteSubject(id: number): void {
     this.subjectService
@@ -83,5 +117,9 @@ export class SubjectsComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

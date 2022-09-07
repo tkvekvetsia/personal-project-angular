@@ -4,11 +4,12 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject, catchError, filter, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, filter, of, Subscription, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-students',
@@ -23,10 +24,14 @@ export class StudentsComponent implements OnInit, OnDestroy {
   errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   addUser$: BehaviorSubject<string> = new BehaviorSubject('');
-
+  confirmValue$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  remove = false;
+  subscription: Subscription = new Subscription();
+  private deleteId: number = NaN;
   constructor(
     private backendService: BackendService,
-    private atuhService: AuthService
+    private atuhService: AuthService,
+    private confirmService: ConfirmService
   ) {}
 
   private getStudents(): void {
@@ -49,17 +54,35 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getStudents();
-
     //atuhService variables
     this.isAdmin$ = this.atuhService.getIsAdmin();
-
+    
     //backendService variables
     this.addUser$ = this.backendService.getAddUser();
     this.students$ = this.backendService.getStudents();
+
+    //confirmservice
+    this.confirmValue$ = this.confirmService.getCofnirmValue();
+    this.subscription = this.confirmValue$
+    .pipe(
+      tap(v =>{
+        if(v){
+          this.onDelete(this.deleteId);
+        }else{
+          this.deleteId = NaN;
+          this.remove = false;
+        }
+      })
+    )
+    .subscribe()
+
   }
 
-  ngOnDestroy(): void {
-    this.backendService.changeAddUser('');
+
+
+  public onRemove(id: number): void{
+    this.deleteId = id;
+    this.remove = true;
   }
 
   public onDelete(id: number): void {
@@ -68,17 +91,32 @@ export class StudentsComponent implements OnInit, OnDestroy {
       .pipe(
         tap((v) => {
           this.getStudents();
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
         }),
         catchError((e) => {
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
           );
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           return of(null);
-        })
+        }),
+        
+
       )
       .subscribe();
   }
   public onAddUser(): void {
     this.backendService.changeAddUser('Student');
   }
+  ngOnDestroy(): void {
+    this.backendService.changeAddUser('');
+    this.subscription.unsubscribe();
+  }
+
+    
+  
 }

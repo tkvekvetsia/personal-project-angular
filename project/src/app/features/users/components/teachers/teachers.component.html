@@ -32,7 +32,7 @@
           <td class="phoneDisplay">{{ teacher.dateOfBirth }}</td>
           <ng-container *ngIf="isAdmin$ | async">
             <td class="button">
-              <button (click)="onDelete(teacher.id!)">
+              <button (click)="onRemove(teacher.id!)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -46,3 +46,7 @@
 <ng-template #addUser>
   <app-register></app-register>
 </ng-template>
+
+<div class="confirm" *ngIf="remove">
+  <app-confirm></app-confirm>
+</div>

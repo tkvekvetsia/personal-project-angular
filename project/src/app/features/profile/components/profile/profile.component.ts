@@ -4,10 +4,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject, catchError, of, ReplaySubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, ReplaySubject, Subscription, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { GpaService } from 'src/app/shared/services/gpa.service';
 
 @Component({
@@ -24,13 +25,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
   loggedUserEmail$: BehaviorSubject<string> = new BehaviorSubject('');
   gpa$: BehaviorSubject<number> = new BehaviorSubject(0);
   number = 0;
+  confirmValue$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  remove = false;
+  subscription: Subscription = new Subscription();
   constructor(
     private authService: AuthService,
     private backendService: BackendService,
-    private gpaService: GpaService
+    private gpaService: GpaService,
+    private confirmService: ConfirmService
+
   ) {}
 
   ngOnInit(): void {
+    //confirmService
+    this.confirmValue$ = this.confirmService.getCofnirmValue();
+    this.subscription = this.confirmValue$
+    .pipe(
+      tap(v =>{
+        if(v){
+          this.onDelete();
+          
+        }else{
+          this.remove = false;
+        }
+      })
+    )
+    .subscribe()
     //gpaservice variables
     this.gpa$ = this.gpaService.getGpa();
 
@@ -44,6 +64,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.backendService.changeUpdateState(false);
+    this.subscription.unsubscribe();
   }
 
   public onUpdate(id: number, email: string): void {
@@ -52,12 +73,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.backendService.changeUpdateState(true);
   }
 
+  
+  public onRemove(): void{
+    this.remove = true;
+  }
+
   public onDelete(): void {
     this.backendService
       .deleteUser(this.loggedUser$.getValue().id)
       .pipe(
         tap((v) => {
-          console.log(v);
+          // console.log(v);
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           this.authService.logOut();
         }),
         catchError((e) => {
@@ -65,6 +93,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
           );
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           return of(null);
         })
       )

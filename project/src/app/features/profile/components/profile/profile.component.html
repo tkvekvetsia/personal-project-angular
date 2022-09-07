@@ -27,7 +27,7 @@
         >
           Update
         </button>
-        <button mat-raised-button color="warn" (click)="onDelete()">
+        <button mat-raised-button color="warn" (click)="onRemove()">
           Delete
         </button>
       </div>
@@ -53,3 +53,7 @@
 <ng-template #update>
   <app-register></app-register>
 </ng-template>
+
+<div class="confirm" *ngIf="remove">
+  <app-confirm></app-confirm>
+</div>

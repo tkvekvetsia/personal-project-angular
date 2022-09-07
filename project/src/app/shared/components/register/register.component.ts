@@ -242,7 +242,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
               phoneNumber: this.loggedUser$.getValue().phoneNumber,
               dateOfBirth: this.loggedUser$.getValue().dateOfBirth,
               sex: this.loggedUser$.getValue().sex,
+
             });
+            console.log('update');
+
+          }else{
+            console.log('update');
           }
         })
       )

@@ -9,9 +9,15 @@
     <app-subject-list
       (addState)="onChangeAddState($event)"
       [subjects$]="subjects$"
+      
       [errorMessage$]="errorMessage$"
-      (deletedId)="onDeleteSubject($event)"
+      (deletedId)="onRemove($event)"
       [user$]="user$"
     ></app-subject-list>
   </ng-template>
+</div>
+
+
+<div class="confirm" *ngIf="remove">
+  <app-confirm></app-confirm>
 </div>
