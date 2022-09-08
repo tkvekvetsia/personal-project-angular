@@ -13,12 +13,14 @@ import {
   IRecord,
 } from 'src/app/features/gradebooks/interfaces/gradebook.interface';
 import { ISubject } from 'src/app/features/subjects/interfaces/subject.interface';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 
 @Component({
   selector: 'app-add-gradebook',
   templateUrl: './add-gradebook.component.html',
   styleUrls: ['./add-gradebook.component.scss'],
+  animations: [FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddGradebookComponent implements OnInit {

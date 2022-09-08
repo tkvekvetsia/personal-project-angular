@@ -43,7 +43,7 @@
     </table>
     <h4>GPA: {{ gpa$ | async }}</h4>
   </ng-container>
-  <div class="badge" *ngIf="gpa$ | async as gpa">
+  <div class="badge" *ngIf="gpa$ | async as gpa" @fade>
     <i
       class="fas fa-medal fa-border fa-3x"
       [ngClass]="{ noob: gpa < 1, gold: gpa > 3, silver: gpa > 1 && gpa < 3 }"

@@ -31,7 +31,6 @@ export class GpaService {
       count = 0;
     }
     let arr = Object.getOwnPropertyNames(obj);
-    console.log(obj)
     for (let mark in obj) {
       gpa += obj[mark];
     }

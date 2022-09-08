@@ -244,10 +244,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
               sex: this.loggedUser$.getValue().sex,
 
             });
-            console.log('update');
-
-          }else{
-            console.log('update');
           }
         })
       )

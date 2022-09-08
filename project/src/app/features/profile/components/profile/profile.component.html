@@ -1,6 +1,6 @@
 <ng-container *ngIf="!(updateState$ | async); else update">
   <div class="container">
-    <div class="card" *ngIf="loggedUser$ | async as loggedUser">
+    <div class="card" *ngIf="loggedUser$ | async as loggedUser" @fade>
       <h3>Personal Information</h3>
       <div class="personal-information border">
         <p>
@@ -50,8 +50,8 @@
   </div>
 </ng-container>
 
-<ng-template #update>
-  <app-register></app-register>
+<ng-template #update >
+  <app-register @fade></app-register>
 </ng-template>
 
 <div class="confirm" *ngIf="remove">

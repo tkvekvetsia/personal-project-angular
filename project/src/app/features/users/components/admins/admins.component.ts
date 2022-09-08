@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
-import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 
 @Component({
   selector: 'app-admins',
   templateUrl: './admins.component.html',
   styleUrls: ['./admins.component.scss'],
+  animations:[FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminsComponent implements OnInit {

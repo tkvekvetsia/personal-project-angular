@@ -22,14 +22,14 @@
 
       <ng-container *ngFor="let teacher of teachers$ | async">
         <tr>
-          <td>{{ teacher.idNumber }}</td>
-          <td>
+          <td  >{{ teacher.idNumber }}</td>
+          <td >
             {{ teacher.fullName.firstName }} {{ teacher.fullName.lastName }}
           </td>
-          <td class="phoneDisplay">{{ teacher.sex }}</td>
-          <td>{{ teacher.phoneNumber }}</td>
-          <td class="phoneDisplay">{{ teacher.email }}</td>
-          <td class="phoneDisplay">{{ teacher.dateOfBirth }}</td>
+          <td  class="phoneDisplay">{{ teacher.sex }}</td>
+          <td >{{ teacher.phoneNumber }}</td>
+          <td  class="phoneDisplay">{{ teacher.email }}</td>
+          <td  class="phoneDisplay">{{ teacher.dateOfBirth }}</td>
           <ng-container *ngIf="isAdmin$ | async">
             <td class="button">
               <button (click)="onRemove(teacher.id!)">
@@ -44,7 +44,7 @@
 </ng-container>
 
 <ng-template #addUser>
-  <app-register></app-register>
+  <app-register ></app-register>
 </ng-template>
 
 <div class="confirm" *ngIf="remove">

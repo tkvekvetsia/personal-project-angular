@@ -6,22 +6,16 @@ import {
   EventEmitter,
   Input,
 } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  debounceTime,
-  of,
-  ReplaySubject,
-  tap,
-} from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { ISubject } from '../../interfaces/subject.interface';
-import { SubjectService } from '../../services/subject.service';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
+import { EnterAnimation, ListAnimation, SlideIn } from 'src/app/shared/animations/table-animation';
 @Component({
   selector: 'app-subject-list',
   templateUrl: './subject-list.component.html',
   styleUrls: ['./subject-list.component.scss'],
+  animations: [FadeAnimation, EnterAnimation, SlideIn, ListAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubjectListComponent implements OnInit {
@@ -34,9 +28,6 @@ export class SubjectListComponent implements OnInit {
   @Input() user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
     {} as ILoggedUSer
   );
-
- 
-
 
   constructor() {}
 

@@ -8,9 +8,9 @@
     <ng-container *ngIf="errorMessage$ | async">
       <h3>Something Went Wrong While Retrieving Data</h3>
     </ng-container>
-    <table>
+    <table >
       <tr>
-        <th>ID</th>
+        <th >ID</th>
         <th>Name</th>
         <th class="phoneDisplay">Sex</th>
         <th>phone</th>
@@ -19,17 +19,17 @@
       </tr>
 
       <ng-container *ngFor="let student of students$ | async">
-        <tr>
-          <td>{{ student.idNumber }}</td>
-          <td>
+        <tr  >
+          <td >{{ student.idNumber }}</td>
+          <td >
             {{ student.fullName.firstName }} {{ student.fullName.lastName }}
-          </td>
-          <td class="phoneDisplay">{{ student.sex }}</td>
-          <td>{{ student.phoneNumber }}</td>
-          <td class="phoneDisplay">{{ student.email }}</td>
-          <td class="phoneDisplay">{{ student.dateOfBirth }}</td>
+          </td >
+          <td class="phoneDisplay" >{{ student.sex }}</td>
+          <td >{{ student.phoneNumber }}</td>
+          <td class="phoneDisplay" >{{ student.email }}</td>
+          <td class="phoneDisplay" >{{ student.dateOfBirth }}</td>
           <ng-container *ngIf="isAdmin$ | async">
-            <td class="button">
+            <td class="button" >
               <button (click)="onRemove(student.id!)">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -42,7 +42,7 @@
 </ng-container>
 
 <ng-template #addUser>
-  <app-register></app-register>
+  <app-register @fade></app-register>
 </ng-template>
 
 <div class="confirm" *ngIf="remove">

@@ -30,17 +30,21 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard],
+
   },
   {
     path: 'subjects',
     loadChildren: () => import('./features/subjects/subjects.module').then(m => m.SubjectsModule),
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard],
+    data: { num: 1 }
+
   },
   {
     path: 'gradebooks',
     loadChildren: () => import('./features/gradebooks/gradebooks.module').then(m => m.GradebooksModule),
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard],
+    data: { num: 5 }
   },
   {
     path: "**",

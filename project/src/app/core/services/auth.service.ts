@@ -15,11 +15,15 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class AuthService {
   baseUrl: string = 'http://localhost:3000';
-  private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!this.tokenStorageService.getToken());
+  private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(
+    !!this.tokenStorageService.getToken()
+  );
   private loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
     this.tokenStorageService.getUser()
   );
-  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(this.tokenStorageService.getUser()?.status === "Admin");
+  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(
+    this.tokenStorageService.getUser()?.status === 'Admin'
+  );
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -29,9 +33,7 @@ export class AuthService {
   ) {}
 
   public login(body: ILoginUser): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.baseUrl}/login`, body).pipe(
-   
-    );
+    return this.http.post<ILoginResponse>(`${this.baseUrl}/login`, body).pipe();
   }
 
   public logOut(): void {
@@ -41,13 +43,12 @@ export class AuthService {
     this.changeLoggedState(false);
     this.backendService.changeUpdateState(false);
     this.changeLoggedUser({} as ILoggedUSer);
-    
+
     // this.backendService.
     this.router.navigateByUrl('/login');
     this.isAdmin$.next(false);
     this.tokenStorageService.logOut();
     window.location.reload();
-    
   }
 
   //getters

@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
 import { IRecord } from '../../interfaces/gradebook.interface';
 
@@ -14,6 +15,7 @@ import { IRecord } from '../../interfaces/gradebook.interface';
   selector: 'app-personal-gradebook',
   templateUrl: './personal-gradebook.component.html',
   styleUrls: ['./personal-gradebook.component.scss'],
+  animations: [FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonalGradebookComponent implements OnInit {

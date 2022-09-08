@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 
 
@@ -15,7 +16,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
   exports:[RegisterComponent, MatButtonModule, ReactiveFormsModule,MatIconModule, ConfirmComponent]
 })

@@ -4,14 +4,14 @@
   </ng-container>
   <table>
     <tr>
-      <th>ID</th>
+      <th >ID</th>
       <th>Name</th>
       <th>Gradebook</th>
     </tr>
 
     <ng-container *ngFor="let student of arrOfStudent$ | async">
       <tr>
-        <td>
+        <td @fade>
           <button
             mat-button
             class="personal"
@@ -20,7 +20,7 @@
             {{ student.idNumber }}
           </button>
         </td>
-        <td>
+        <td @fade>
           <button
             mat-button
             class="personal"
@@ -29,7 +29,7 @@
             {{ student.fullName.firstName }} {{ student.fullName.lastName }}
           </button>
         </td>
-        <td>
+        <td >
           <button mat-stroked-button color="warn" (click)="onAdd(student)">
             Add
           </button>

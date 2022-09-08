@@ -16,7 +16,11 @@ import { TokenStorageService } from '../../services/token-storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
   authErrorMessage$: BehaviorSubject<string> = new BehaviorSubject('');
   ngOnInit(): void {}
 
@@ -40,8 +44,10 @@ export class LoginComponent implements OnInit {
           this.authErrorMessage$.next('');
           // console.log(v);
           this.tokenStorageService.saveToken(v.accessToken);
-          this.tokenStorageService.saveUser(v.user)
-          this.authService.changeLoggedState(!!this.tokenStorageService.getToken()); 
+          this.tokenStorageService.saveUser(v.user);
+          this.authService.changeLoggedState(
+            !!this.tokenStorageService.getToken()
+          );
           window.location.reload();
           // this.authService.changeLoggedUser(v.user);
           this.router.navigateByUrl('/profile');

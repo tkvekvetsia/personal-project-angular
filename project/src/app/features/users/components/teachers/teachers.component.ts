@@ -7,14 +7,17 @@ import {
 import { BehaviorSubject, catchError, of, Subscription, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
-import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
+
+// import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
   styleUrls: ['./teachers.component.scss'],
+  animations:[FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeachersComponent implements OnInit, OnDestroy {
@@ -61,10 +64,7 @@ export class TeachersComponent implements OnInit, OnDestroy {
         tap((v) => {
           if (v) {
             this.onDelete(this.deleteId);
-            console.log('subed');
-            
           } else {
-            console.log('subed');
             this.deleteId = NaN;
             this.remove = false;
           }

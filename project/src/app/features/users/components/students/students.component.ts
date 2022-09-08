@@ -8,13 +8,21 @@ import { BehaviorSubject, catchError, filter, of, Subscription, tap } from 'rxjs
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
-import { IRegisteredUser } from 'src/app/shared/itnerfaces/register.interface';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
+import {
+  trigger,
+  style,
+  transition,
+  animate,
+  state,
+} from '@angular/animations';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss'],
+  animations:[FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StudentsComponent implements OnInit, OnDestroy {

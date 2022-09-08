@@ -6,12 +6,14 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 import { ISubject, ISubjectForm } from '../../interfaces/subject.interface';
 import { SubjectService } from '../../services/subject.service';
 @Component({
   selector: 'app-add-subject',
   templateUrl: './add-subject.component.html',
   styleUrls: ['./add-subject.component.scss'],
+  animations:[FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddSubjectComponent implements OnInit {

@@ -2,9 +2,9 @@
   "users": [
     {
       "email": "admin2@gmail.com",
-      "password": "$2a$10$1Yqt24SJke1oYsdgLTf3bObiLcMX26282vU9N81oU9b5WjJgXffai",
+      "password": "$2a$10$2IZWxI1M54HY/fboLKII2.Q/9K7FEn0UW9h4VjwEmSQHdoml70xky",
       "fullName": {
-        "firstName": "adminsecond",
+        "firstName": "admin",
         "lastName": "last"
       },
       "idNumber": 12345678919,
@@ -83,49 +83,65 @@
       "sex": "Male",
       "status": "teacher",
       "id": 26
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$uP5Qjc.RZcuDAvOeNyNlMuYtufw8DHCFFEM656/0Oco.7auJiqvn6",
+      "fullName": {
+        "firstName": "jimi",
+        "lastName": "jon"
+      },
+      "idNumber": 12345678912,
+      "phoneNumber": "+995598464646",
+      "dateOfBirth": "2022-09-15",
+      "sex": "Male",
+      "status": "Student",
+      "id": 27
+    },
+    {
+      "email": "guram@gmail.com",
+      "password": "$2a$10$0a8jnwi0iggiq9DQd3ws9OpXnk/2719Vv57n9fh7Gp4VHOCEtbVx.",
+      "fullName": {
+        "firstName": "guram",
+        "lastName": "guram"
+      },
+      "idNumber": 12345678921,
+      "phoneNumber": "+995599999999",
+      "dateOfBirth": "2022-09-05",
+      "sex": "Male",
+      "status": "Teacher",
+      "id": 28
+    },
+    {
+      "email": "stu@gmail.com",
+      "password": "$2a$10$5oasr35R72jPe0Mwd4yzfeCW43R7mS1YWD9HrcV3H3n2Fxmu7f2JW",
+      "fullName": {
+        "firstName": "student",
+        "lastName": "name"
+      },
+      "idNumber": 12345698778,
+      "phoneNumber": "+995598484848",
+      "dateOfBirth": "2022-09-19",
+      "sex": "Male",
+      "status": "Student",
+      "id": 29
     }
   ],
   "subjects": [
     {
-      "subject": "geography",
-      "lessons": 9,
-      "description": "description 3",
-      "id": 3
-    },
-    {
-      "subject": "physics",
-      "lessons": 13,
-      "description": "physics",
-      "id": 4
-    },
-    {
       "subject": "chemistry",
+      "lessons": 10,
+      "description": "chemistry3",
+      "id": 7
+    },
+    {
+      "subject": "math",
       "lessons": 12,
-      "description": "chemistry is good",
-      "id": 5
+      "description": "asdkjasld\n",
+      "id": 10
     }
   ],
   "gradebooks": [
-    {
-      "student": "tyson co",
-      "studentIdNumber": 12345678918,
-      "teacher": "gurama lastname",
-      "subject": "history",
-      "lesson": 9,
-      "mark": 9,
-      "date": "09/06/2022",
-      "id": 4
-    },
-    {
-      "student": "nick right",
-      "studentIdNumber": 12345678954,
-      "teacher": "gurama lastname",
-      "subject": "math",
-      "lesson": 1,
-      "mark": 1,
-      "date": "09/06/2022",
-      "id": 5
-    },
     {
       "student": "laura lastname",
       "studentIdNumber": 12345678911,
@@ -175,6 +191,26 @@
       "mark": 4,
       "date": "09/07/2022",
       "id": 16
+    },
+    {
+      "student": "jimi jon",
+      "studentIdNumber": 12345678912,
+      "teacher": "admin last",
+      "subject": "physics",
+      "lesson": 2,
+      "mark": 10,
+      "date": "09/07/2022",
+      "id": 17
+    },
+    {
+      "student": "student name",
+      "studentIdNumber": 12345698778,
+      "teacher": "admin last",
+      "subject": "chemistry",
+      "lesson": 12,
+      "mark": 10,
+      "date": "09/08/2022",
+      "id": 18
     }
   ]
 }

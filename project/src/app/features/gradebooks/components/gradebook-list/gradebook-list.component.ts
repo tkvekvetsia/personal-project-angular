@@ -7,13 +7,14 @@ import {
   Output,
 } from '@angular/core';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
-import { BehaviorSubject, catchError, debounceTime, of, tap } from 'rxjs';
-import { IRecord } from '../../interfaces/gradebook.interface';
+import { BehaviorSubject } from 'rxjs';
+import { FadeAnimation } from 'src/app/shared/animations/animations';
 
 @Component({
   selector: 'app-gradebook-list',
   templateUrl: './gradebook-list.component.html',
   styleUrls: ['./gradebook-list.component.scss'],
+  animations: [FadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GradebookListComponent implements OnInit {

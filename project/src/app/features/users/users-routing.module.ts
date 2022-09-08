@@ -16,17 +16,24 @@ const routes: Routes = [
   },
   {
     path: 'teachers',
-    component: TeachersComponent
+    component: TeachersComponent,
+    data: { num: 2 }
+
+  },
+ 
+  {
+    path: 'students',
+    component: StudentsComponent, 
+    data: { num: 3 }
+
   },
   {
     path: 'admins',
     component: AdminsComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard],
+    data: { num: 4 }
+
   },
-  {
-    path: 'students',
-    component: StudentsComponent
-  }
 
 
 ];

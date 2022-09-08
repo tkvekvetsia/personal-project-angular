@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { SubjectService } from '../services/subject.service';
-import { BehaviorSubject, catchError, debounceTime, of, Subscription, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  debounceTime,
+  of,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { ISubject } from '../interfaces/subject.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
@@ -19,7 +31,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
     [] as ISubject[]
   );
   user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject({} as ILoggedUSer);
-  confirmValue$: BehaviorSubject<boolean> =  new BehaviorSubject(false);
+  confirmValue$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   remove = false;
   deleteId = NaN;
   subscription: Subscription = new Subscription();
@@ -48,24 +60,23 @@ export class SubjectsComponent implements OnInit, OnDestroy {
     //confirservice
     this.confirmValue$ = this.confirmService.getCofnirmValue();
     this.subscription = this.confirmValue$
-    .pipe(
-      tap(v =>{
-        if(v){
-          this.onDeleteSubject(this.deleteId);
-        }else{
-          this.deleteId = NaN;
-          this.remove = false;
-        }
-      })
-    )
-    .subscribe()
+      .pipe(
+        tap((v) => {
+          if (v) {
+            this.onDeleteSubject(this.deleteId);
+          } else {
+            this.deleteId = NaN;
+            this.remove = false;
+          }
+        })
+      )
+      .subscribe();
 
     this.getAllSubject();
     this.user$ = this.authService.getLoggedUser();
   }
 
-  
-  public onRemove(id: number): void{
+  public onRemove(id: number): void {
     this.deleteId = id;
     this.remove = true;
   }
@@ -99,7 +110,6 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   onChangeAddState(value: boolean) {
     this.addState$.next(value);
   }
-
 
   public onDeleteSubject(id: number): void {
     this.subjectService
