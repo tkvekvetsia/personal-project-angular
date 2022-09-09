@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "email": "admin2@gmail.com",
-      "password": "$2a$10$2IZWxI1M54HY/fboLKII2.Q/9K7FEn0UW9h4VjwEmSQHdoml70xky",
+      "email": "admin@gmail.com",
+      "password": "$2a$10$mK40zYd3gUypBQhf4FO3e.AGuHT0txznYQ0toqhLV8u9K/LnHcJky",
       "fullName": {
         "firstName": "admin",
         "lastName": "last"
@@ -125,6 +125,20 @@
       "sex": "Male",
       "status": "Student",
       "id": 29
+    },
+    {
+      "email": "teacher@gmail.com",
+      "password": "$2a$10$rnTk8V/U4Ym6.dVczVQgO.AONU/FEgAQEX9GMlNtY6XLJNKjDWs4C",
+      "fullName": {
+        "firstName": "helen",
+        "lastName": "helen"
+      },
+      "idNumber": 12345678954,
+      "phoneNumber": "+995888888888",
+      "dateOfBirth": "2022-09-20",
+      "sex": "Female",
+      "status": "teacher",
+      "id": 30
     }
   ],
   "subjects": [
@@ -139,6 +153,12 @@
       "lessons": 12,
       "description": "asdkjasld\n",
       "id": 10
+    },
+    {
+      "subject": "physics",
+      "lessons": 13,
+      "description": "asd",
+      "id": 11
     }
   ],
   "gradebooks": [

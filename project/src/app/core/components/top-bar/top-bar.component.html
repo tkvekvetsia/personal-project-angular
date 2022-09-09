@@ -4,33 +4,50 @@
       <img src="../../../../assets/images/school.png" alt="school image" />
       <h1>Welcome</h1>
     </div>
-    <nav>
-      <ng-container *ngIf="isLoggedIn$ | async; else signIn">
-        <!-- ngIf="isLoggedIn |async; else signIn" -->
-        <ul class="pages">
-          <li routerLink="/subjects">
-            <a>Subjects</a>
-          </li>
-          <li (click)="onClickTeachers()" >
-            <a>Teachers</a>
-          </li>
-          <li (click)="onClickStudents()">
-            <a>Students</a>
-          </li>
-          <ng-container *ngIf="isAdmin$ | async">
-            <li (click)="onClickAdmins()">
-              <a>Admins</a>
-            </li>
-          </ng-container>
-          <li routerLink="/gradebooks">
-            <a>Gradebooks</a>
-          </li>
-        </ul>
-      </ng-container>
-      <ng-template #signIn>
-        <div></div>
-      </ng-template>
+    <ng-container *ngIf="isLoggedIn$ | async">
+      <mat-icon class="menu" (click)="onShowMenu()">{{ menu }}</mat-icon>
+    </ng-container>
+    <div class="nav">
+      <nav
+        (click)="onShowMenu()"
+        [ngClass]="{ block: showMenu === true, none: showMenu === false }"
+      >
+        <ng-container *ngIf="isLoggedIn$ | async; else signIn">
+          <ul class="pages">
+            <ng-container *ngIf="isLoggedIn$ | async">
+              <li routerLink="/profile" class="mobile-display">
+                <a>Profile</a>
+              </li>
+            </ng-container>
 
+            <li routerLink="/subjects" routerLinkActive="active">
+              <a>Subjects</a>
+            </li>
+            <li routerLink="/users/teachers" routerLinkActive="active">
+              <a>Teachers</a>
+            </li>
+            <li routerLink="/users/students" routerLinkActive="active">
+              <a>Students</a>
+            </li>
+            <ng-container *ngIf="isAdmin$ | async">
+              <li routerLink="/users/admins" routerLinkActive="active">
+                <a>Admins</a>
+              </li>
+            </ng-container>
+            <li routerLink="/gradebooks" routerLinkActive="active">
+              <a>Gradebooks</a>
+            </li>
+            <ng-container *ngIf="isLoggedIn$ | async">
+              <li (click)="onLogOut()" class="mobile-display">
+                <a>Log Out</a>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+        <ng-template #signIn>
+          <div></div>
+        </ng-template>
+      </nav>
       <div class="buttons">
         <ng-container *ngIf="!(isLoggedIn$ | async)">
           <button mat-stroked-button color="primary" routerLink="/login">
@@ -41,17 +58,23 @@
           </button>
         </ng-container>
         <ng-container *ngIf="isLoggedIn$ | async">
-          <button mat-stroked-button color="primary" routerLink="/profile">
+          <button
+            mat-stroked-button
+            color="primary"
+            routerLink="/profile"
+            class="mobile-display"
+          >
             Profile
           </button>
         </ng-container>
 
         <ng-container *ngIf="isLoggedIn$ | async">
-          <button mat-stroked-button color="primary" (click)="onLogOut()">
+          
+          <button mat-stroked-button color="primary" (click)="onLogOut()" class="mobile-display">
             Log Out
           </button>
         </ng-container>
       </div>
-    </nav>
+    </div>
   </div>
 </header>

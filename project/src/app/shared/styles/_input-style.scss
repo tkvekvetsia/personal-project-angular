@@ -1,3 +1,5 @@
+@use './media-quaries';
+
 .card {
     margin-top: 30px;
     width: 400px;
@@ -37,7 +39,7 @@
       flex-direction: column;
       label {
         margin-bottom: 15px;
-
+        
         .input-style {
           width: 280px;
           margin-top: 3px;
@@ -53,6 +55,7 @@
           border: 1px solid $input-border-color;
           border-radius: 0.25rem;
           transition: 0.2s;
+          
           &:focus {
             border: 1.5px solid $input-border-focus-color;
             box-shadow: 0 0 5px 0 $input-border-focus-color;
@@ -92,5 +95,13 @@
           margin-right: 20px;
         }
       }
+    }
+   
+  }
+
+
+  @media screen and (min-width: $mobile-min) and (max-width: $mobile-max){
+    .card{
+      width: 350px;
     }
   }

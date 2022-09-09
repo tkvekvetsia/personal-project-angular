@@ -38,6 +38,11 @@ export class AuthService {
 
   public logOut(): void {
     // localStorage.removeItem('auth_access');
+    this.tokenStorageService.logOut();
+    window.location.reload();
+    setTimeout(() => {
+      this.router.navigateByUrl('/login');
+    }, 2000);
     this.backendService.changeLoggedUserEmail('');
     this.backendService.changeUpdateUserId(-1);
     this.changeLoggedState(false);
@@ -45,10 +50,7 @@ export class AuthService {
     this.changeLoggedUser({} as ILoggedUSer);
 
     // this.backendService.
-    this.router.navigateByUrl('/login');
     this.isAdmin$.next(false);
-    this.tokenStorageService.logOut();
-    window.location.reload();
   }
 
   //getters

@@ -14,7 +14,7 @@
       <select formControlName="subject" class="input-style">
         <ng-container *ngIf="arrOfSubject$ | async as arrOfSubject">
           <ng-container *ngFor="let subject of arrOfSubject">
-            <option [value]="subject.subject">{{ subject.subject }}</option>
+            <option [value]="subject.subject" >{{ subject.subject }}</option>
           </ng-container>
         </ng-container>
       </select>
