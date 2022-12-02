@@ -203,8 +203,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               this.idExistsError$.next(true);  
             } else if (
               index >= 0 &&
-              this.idNumber.value !==
-                this.loggedUser$.getValue()?.idNumber
+              this.idNumber.value !== this.loggedUser$.getValue()?.idNumber
             ) {
               this.idExistsError$.next(true);
              

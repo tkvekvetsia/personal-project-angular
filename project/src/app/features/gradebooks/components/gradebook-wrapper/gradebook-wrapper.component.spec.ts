@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GradebookWrapperComponent } from './gradebook-wrapper.component';
@@ -8,7 +9,8 @@ describe('GradebookWrapperComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GradebookWrapperComponent ]
+      declarations: [ GradebookWrapperComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 

@@ -8,7 +8,6 @@ import { SubjectService } from '../services/subject.service';
 import {
   BehaviorSubject,
   catchError,
-  debounceTime,
   of,
   Subscription,
   tap,
@@ -116,13 +115,19 @@ export class SubjectsComponent implements OnInit, OnDestroy {
       .deleteSubject(id)
       .pipe(
         tap((v) => {
-          console.log(v);
+          // console.log(v);
           this.getAllSubject();
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
         }),
         catchError((e) => {
+          this.deleteId = NaN;
+          this.remove = false;
+          this.confirmService.changeConfirmValue(false);
           alert(
             `Something Went Wrong With Status Code: ${e.status} ${e.statusText}`
-          );
+          );      
           return of(null);
         })
       )

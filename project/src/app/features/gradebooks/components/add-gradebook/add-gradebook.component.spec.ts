@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AddGradebookComponent } from './add-gradebook.component';
 
@@ -8,7 +9,8 @@ describe('AddGradebookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddGradebookComponent ]
+      declarations: [ AddGradebookComponent ],
+      imports:[BrowserAnimationsModule]
     })
     .compileComponents();
 
