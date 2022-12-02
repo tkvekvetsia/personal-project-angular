@@ -37,13 +37,13 @@
           </td>
         </tr>
       </ng-container>
-      <ng-container *ngIf="(loggedUser$ | async)!.status !== 'Student'">
+      <ng-container *ngIf="loggedUser?.status !== 'Student'">
         <button class="close" (click)="onClose()">X</button>
       </ng-container>
     </table>
-    <h4>GPA: {{ gpa$ | async }}</h4>
+    <h4>GPA: {{gpa}}</h4>
   </ng-container>
-  <div class="badge" *ngIf="gpa$ | async as gpa" @fade>
+  <div class="badge" *ngIf="gpa" @fade>
     <i
       class="fas fa-medal fa-border fa-3x"
       [ngClass]="{ noob: gpa < 1, gold: gpa > 3, silver: gpa > 1 && gpa < 3 }"

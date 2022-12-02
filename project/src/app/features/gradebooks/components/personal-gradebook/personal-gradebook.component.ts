@@ -19,17 +19,15 @@ import { IRecord } from '../../interfaces/gradebook.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonalGradebookComponent implements OnInit {
-  errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  // errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   @Output() displayPersonalGradebook = new EventEmitter();
   @Input() personalGradebook$: BehaviorSubject<IRecord[]> = new BehaviorSubject(
     [] as IRecord[]
   );
-  @Input() loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
-    {} as ILoggedUSer
-  );
-  @Input() gpa$: BehaviorSubject<number> = new BehaviorSubject(0);
-  constructor() {}
+  @Input() loggedUser : ILoggedUSer | null = {} as ILoggedUSer;
 
+  constructor() {}
+@Input() gpa: number | null = null;
   ngOnInit(): void {}
   public onClose(): void {
     this.displayPersonalGradebook.next(false);

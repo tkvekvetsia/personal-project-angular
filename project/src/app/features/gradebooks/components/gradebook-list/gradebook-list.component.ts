@@ -18,11 +18,14 @@ import { FadeAnimation } from 'src/app/shared/animations/animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GradebookListComponent implements OnInit {
-  @Input() arrOfStudent$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
-    [] as ILoggedUSer[]
-  );
+  // @Input() arrOfStudent$: BehaviorSubject<ILoggedUSer[]> = new BehaviorSubject(
+  //   [] as ILoggedUSer[]
+  // );
 
-  @Input() errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  // @Input() errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  //change behavior subjects
+  @Input() arrOfStudent:ILoggedUSer[]  | null = []
+  @Input() errorMessage: boolean | null = false;
   @Output() student = new EventEmitter();
   @Output() displayPersonalGradebook = new EventEmitter();
   @Output() idNumber = new EventEmitter();

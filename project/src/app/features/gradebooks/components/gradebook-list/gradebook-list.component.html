@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-container *ngIf="errorMessage$ | async">
+  <ng-container *ngIf="errorMessage">
     <h3>Something Went Wrong While Retrieving Data</h3>
   </ng-container>
   <table>
@@ -9,7 +9,7 @@
       <th>Gradebook</th>
     </tr>
 
-    <ng-container *ngFor="let student of arrOfStudent$ | async">
+    <ng-container *ngFor="let student of arrOfStudent">
       <tr>
         <td >
           <button

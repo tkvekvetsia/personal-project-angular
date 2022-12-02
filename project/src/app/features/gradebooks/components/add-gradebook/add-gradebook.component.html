@@ -1,22 +1,22 @@
-<div @fade class="card" *ngIf="student$ | async as student">
+<div @fade class="card">
   <h3>
     Add Gradebook for:
     <span
-      >{{ student.fullName?.firstName }} {{ student.fullName?.lastName }}</span
+      >{{ student?.fullName?.firstName }} {{ student?.fullName?.lastName }}</span
     >
   </h3>
   <p>
-    ID: <span>{{ student.idNumber }}</span>
+    ID: <span>{{ student?.idNumber }}</span>
   </p>
   <form [formGroup]="recordForm">
     <label>
       Subject:
       <select formControlName="subject" class="input-style">
-        <ng-container *ngIf="arrOfSubject$ | async as arrOfSubject">
+        <!-- <ng-container *ngIf="arrOfSubject$ | async as arrOfSubject"> -->
           <ng-container *ngFor="let subject of arrOfSubject">
             <option [value]="subject.subject" >{{ subject.subject }}</option>
           </ng-container>
-        </ng-container>
+        <!-- </ng-container> -->
       </select>
     </label>
     <label>

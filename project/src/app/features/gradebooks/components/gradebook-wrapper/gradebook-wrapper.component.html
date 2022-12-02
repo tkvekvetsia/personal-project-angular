@@ -4,17 +4,17 @@
   >
     <ng-container *ngIf="addState$ | async; else gradebookList">
       <app-add-gradebook
-        [student$]="student$"
-        [arrOfSubject$]="arrOfSubject$"
-        [loggedUser$]="loggedUser$"
+        [student]="student$ | async"
+        [arrOfSubject]="arrOfSubject$ | async"
+        [loggedUser]="loggedUser$ | async"
         (record)="registerRecord($event)"
         (cancel)="onCancel()"
       ></app-add-gradebook>
     </ng-container>
     <ng-template #gradebookList>
       <app-gradebook-list
-        [arrOfStudent$]="arrOfStudents$"
-        [errorMessage$]="errorMessage$"
+        [arrOfStudent]="arrOfStudents$ | async"
+        [errorMessage]="errorMessage$ | async"
         (student)="onAdd($event)"
         (displayPersonalGradebook)="onDisplayPersonalGradebook($event)"
         (idNumber)="onClickIdNumber($event)"
@@ -24,8 +24,8 @@
   <ng-template #peronsalGradebook>
     <app-personal-gradebook
       [personalGradebook$]="personalGradebook$"
-      [loggedUser$]="loggedUser$"
-      [gpa$]="gpa$"
+      [loggedUser]="loggedUser$ | async"
+      [gpa]="gpa$ | async"
       (displayPersonalGradebook)="onDisplayPersonalGradebook($event)"
     ></app-personal-gradebook>
   </ng-template>

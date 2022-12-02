@@ -24,18 +24,21 @@ import { ILoggedUSer } from 'src/app/shared/itnerfaces/login.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddGradebookComponent implements OnInit {
-  @Input() gradebook$: BehaviorSubject<IRecord> = new BehaviorSubject(
-    {} as IRecord
-  );
-  @Input() student$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
-    {} as ILoggedUSer
-  );
-  @Input() arrOfSubject$: BehaviorSubject<ISubject[]> = new BehaviorSubject(
-    [] as ISubject[]
-  );
-  @Input() loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
-    {} as ILoggedUSer
-  );
+ 
+
+  // @Input() arrOfSubject$: BehaviorSubject<ISubject[]> = new BehaviorSubject(
+  //   [] as ISubject[]
+  // );
+  // @Input() loggedUser$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
+  //   {} as ILoggedUSer
+  // );
+ 
+
+  //change behavior subjects
+  @Input() gradebook: IRecord = {} as IRecord;
+  @Input() arrOfSubject: ISubject[] | null = [];
+  @Input() student: ILoggedUSer | null =  {} as ILoggedUSer;
+  @Input() loggedUser : ILoggedUSer | null = {} as ILoggedUSer;
 
   @Output() cancel = new EventEmitter();
   @Output() record = new EventEmitter();
@@ -66,17 +69,17 @@ export class AddGradebookComponent implements OnInit {
 
   public addRecord(): void {
     const student: string =
-      this.student$.getValue().fullName.firstName +
+      this.student?.fullName.firstName +
       ' ' +
-      this.student$.getValue().fullName.lastName;
+      this.student?.fullName.lastName;
     const teacher: string =
-      this.loggedUser$.getValue().fullName.firstName +
+      this.loggedUser?.fullName.firstName +
       ' ' +
-      this.loggedUser$.getValue().fullName.lastName;
+      this.loggedUser?.fullName.lastName;
     const today = this.formatDate();
     const recordValue: IRecord = {
       student: student,
-      studentIdNumber: this.student$.getValue().idNumber,
+      studentIdNumber: this.student?.idNumber as number,
       teacher: teacher,
       subject: this.subject.value as string,
       lesson: this.lesson.value as number,
