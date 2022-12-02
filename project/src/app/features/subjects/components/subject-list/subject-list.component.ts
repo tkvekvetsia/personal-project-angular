@@ -19,15 +19,11 @@ import { EnterAnimation, ListAnimation, SlideIn } from 'src/app/shared/animation
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubjectListComponent implements OnInit {
-  @Input() errorMessage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  @Input() subjects$: BehaviorSubject<ISubject[]> = new BehaviorSubject(
-    [] as ISubject[]
-  );
+  @Input() errorMessage : boolean | null = false;
+  @Input() subjects: ISubject[] | null = [] as ISubject[];
   @Output() addState = new EventEmitter<boolean>();
   @Output() deletedId = new EventEmitter<number>();
-  @Input() user$: BehaviorSubject<ILoggedUSer> = new BehaviorSubject(
-    {} as ILoggedUSer
-  );
+  @Input() user: ILoggedUSer | null= {} as ILoggedUSer;
 
   constructor() {}
 

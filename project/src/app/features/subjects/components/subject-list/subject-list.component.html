@@ -1,14 +1,14 @@
 <div class="container">
-  <ng-container *ngIf="errorMessage$ | async">
+  <ng-container *ngIf="errorMessage">
     <h3>Something Went Wrong While Retrieving Data</h3>
   </ng-container>
-  <ng-container *ngIf="(user$ | async)?.status !== 'Student'">
+  <ng-container *ngIf="user?.status !== 'Student'">
     <button   mat-stroked-button color="primary" (click)="onAddSubject()">
       Add subject
     </button>
   </ng-container>
 
-  <ng-container *ngIf="errorMessage$ | async">
+  <ng-container *ngIf="errorMessage">
     <h3>Something Went Wrong While Retrieving Data</h3>
   </ng-container>
 
@@ -20,7 +20,7 @@
       <th>description</th>
     </tr>
 
-    <ng-container *ngFor="let subject of subjects$ | async">
+    <ng-container *ngFor="let subject of subjects">
       <tr >
         <td >{{ subject.id }}</td>
         <td >{{ subject.subject }}</td>
@@ -28,7 +28,7 @@
           {{ subject.lessons }}
         </td>
         <td >{{ subject.description }}</td>
-        <ng-container *ngIf="(user$ | async)?.status !== 'Student'">
+        <ng-container *ngIf="user?.status !== 'Student'">
           <td class="button">
             <button (click)="onDelete(subject.id!)">
               <mat-icon>delete</mat-icon>

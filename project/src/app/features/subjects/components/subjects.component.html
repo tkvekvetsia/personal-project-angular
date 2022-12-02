@@ -8,11 +8,11 @@
   <ng-template #subjectList>
     <app-subject-list
       (addState)="onChangeAddState($event)"
-      [subjects$]="subjects$"
+      [subjects]="subjects$ | async"
       
-      [errorMessage$]="errorMessage$"
+      [errorMessage]="errorMessage$ | async"
       (deletedId)="onRemove($event)"
-      [user$]="user$"
+      [user]="user$ | async"
     ></app-subject-list>
   </ng-template>
 </div>
